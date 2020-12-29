@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "gizmos",
+  "version": "1.0.0",
+  
+  "name": "Gizmos",
+  "description": "A mod that adds a bunch of wacky items and mechanics to Minecraft.",
+  "authors": [
+    "Hyper_Pigeon"
+  ],
+  
+  "icon": "assets/gizmos/textures/item/slingshot.png",
+  "license": "MIT",
+  
+  "environment": "*",
+  
+  "entrypoints": {
+    "main": [
+      "net.hyper_pigeon.Gizmos.Gizmos"
+    ],
+    "client": [
+      "net.hyper_pigeon.Gizmos.GizmosClient"
+    ]
+  },
+  
+  "requires": {
+    "fabricloader": ">=0.4.0"
+  },
+  
+  "mixins": [
+    "Gizmos.mixins.json"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "package": "net.hyper_pigeon.Gizmos.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BipedEntityModelMixin",
+    "HorseBaseEntityMixin",
+    "HorseEntityMixin",
+    "IronGolemEntityMixin",
+    "PillagerEntityMixin",
+    "RavagerEntityMixin",
+    "SkeletonHorseEntityMixin",
+    "ZombieHorseEntityMixin"
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

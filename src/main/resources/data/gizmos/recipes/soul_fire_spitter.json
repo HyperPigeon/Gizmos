@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  G",
+    " DH",
+    "SC "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    },
+    "C": {
+      "item": "minecraft:cobblestone_wall"
+    },
+    "S": {
+      "item": "minecraft:soul_torch"
+    }
+  },
+  "result": {
+    "item": "gizmos:soul_fire_spitter",
+    "count": 1,
+    "data": {
+      "Damage": 250
+    }
+  }
+}
