@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
+import static org.apache.commons.lang3.StringUtils.endsWithAny;
+
 public class MixinConditions implements IMixinConfigPlugin {
     static {
         // must register here, registering in Gizmos doesn't happen in time
@@ -33,6 +35,21 @@ public class MixinConditions implements IMixinConfigPlugin {
 
         if (mixinClassName.endsWith("RavagerEntityMixin"))
             return CONFIG.rideableRavagers;
+
+        if (mixinClassName.endsWith("IronGolemEntityMixin"))
+            return CONFIG.rideableRavagers || CONFIG.chorusGourdAndCultivatedShulkers;
+
+        if (mixinClassName.endsWith("BipedEntityModel"))
+            return CONFIG.soulFireSpitter;
+
+        if (!CONFIG.horseshoes) {
+            return !endsWithAny(mixinClassName,
+                    "AbstractDonkeyEntityMixin",
+                    "HorseBaseEntityMixin",
+                    "HorseEntityMixin",
+                    "SkeletonHorseEntityMixin",
+                    "ZombieHorseEntityMixin");
+        }
 
         return true;
     }
