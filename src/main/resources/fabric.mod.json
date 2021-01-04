@@ -29,6 +29,11 @@
   "requires": {
     "fabricloader": ">=0.4.0"
   },
+
+  "recommends": {
+    "recipeconditions": "*",
+    "modmenu": "*"
+  },
   
   "mixins": [
     "Gizmos.mixins.json"

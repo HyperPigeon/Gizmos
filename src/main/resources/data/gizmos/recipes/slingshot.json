@@ -16,5 +16,8 @@
   "result": {
     "item": "gizmos:slingshot",
     "count": 1
-  }
+  },
+  "frc:conditions": [
+    { "recipeconditions:item_registered": "gizmos:slingshot" }
+  ]
 }

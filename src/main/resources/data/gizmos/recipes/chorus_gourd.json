@@ -16,5 +16,8 @@
   "result": {
     "item": "gizmos:chorus_gourd",
     "count": 1
-  }
+  },
+  "frc:conditions": [
+    { "recipeconditions:item_registered": "gizmos:chorus_gourd" }
+  ]
 }

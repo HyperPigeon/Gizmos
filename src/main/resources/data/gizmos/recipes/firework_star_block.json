@@ -25,5 +25,8 @@
   "result": {
     "item": "gizmos:firework_star_block",
     "count": 1
-  }
+  },
+  "frc:conditions": [
+    { "recipeconditions:item_registered": "gizmos:firework_star_block" }
+  ]
 }
