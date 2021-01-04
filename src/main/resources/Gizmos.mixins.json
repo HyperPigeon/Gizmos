@@ -2,6 +2,7 @@
   "required": true,
   "package": "net.hyper_pigeon.Gizmos.mixin",
   "compatibilityLevel": "JAVA_8",
+  "plugin": "net.hyper_pigeon.Gizmos.mixin.MixinConditions",
   "mixins": [
     "BipedEntityModelMixin",
     "HorseBaseEntityMixin",

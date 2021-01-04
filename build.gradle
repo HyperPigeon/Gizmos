@@ -48,6 +48,15 @@ dependencies {
 
 	modImplementation "io.github.cottonmc:LibGui:${project.libGui_version}"
 
+	// Config library
+	modApi ("me.shedaniel.cloth:config-2:4.8.3") { exclude module: 'fabric-api' }
+	include "me.shedaniel.cloth:config-2:4.8.3"
+	// Config ease-of-use
+	modApi ("me.sargunvohra.mcmods:autoconfig1u:3.3.1") { exclude module: 'fabric-api' }
+	include "me.sargunvohra.mcmods:autoconfig1u:3.3.1"
+	// Config menu support
+	modImplementation ("io.github.prospector:modmenu:1.14.13+build.19") { exclude module: 'fabric-api' }
+
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
 
