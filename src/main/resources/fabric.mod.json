@@ -20,6 +20,9 @@
     ],
     "client": [
       "net.hyper_pigeon.Gizmos.GizmosClient"
+    ],
+    "modmenu": [
+      "net.hyper_pigeon.Gizmos.config.GizmosModMenuIntegration"
     ]
   },
   

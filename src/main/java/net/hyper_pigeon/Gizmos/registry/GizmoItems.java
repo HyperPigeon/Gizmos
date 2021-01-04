@@ -34,7 +34,7 @@ public class GizmoItems {
         if (Gizmos.CONFIG.slingShot)
             Registry.register(Registry.ITEM, new Identifier("gizmos","slingshot"), SLINGSHOT);
 
-        if (Gizmos.CONFIG.horseShoes)
+        if (Gizmos.CONFIG.horseshoes)
             Registry.register(Registry.ITEM, new Identifier("gizmos","horseshoes"), HORSESHOES);
     }
 

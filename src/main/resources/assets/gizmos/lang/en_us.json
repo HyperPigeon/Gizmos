@@ -11,5 +11,19 @@
 
   "item.gizmos.firework_star_block": "Firework Star Block",
 
-  "item.gizmos.horseshoes": "Horseshoes"
+  "item.gizmos.horseshoes": "Horseshoes",
+
+  "text.autoconfig.gizmos.option.slingShot": "Enable sling shot",
+
+  "text.autoconfig.gizmos.option.soulFireSpitter": "Enable soul fire spitter",
+
+  "text.autoconfig.gizmos.option.fireworkStarBlock": "Enable firework star block",
+
+  "text.autoconfig.gizmos.option.chorusGourdAndCultivatedShulkers": "Enable chorus gourd and cultivated shulkers",
+
+  "text.autoconfig.gizmos.option.horseshoes": "Enable horseshoes",
+
+  "text.autoconfig.gizmos.option.rideableRavagers": "Enable rideable ravagers",
+
+  "text.autoconfig.gizmos.option.pillagerFireworkStars": "Enable pillager firework stars"
 }

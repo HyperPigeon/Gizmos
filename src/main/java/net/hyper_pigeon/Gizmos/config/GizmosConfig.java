@@ -9,6 +9,7 @@ public class GizmosConfig implements ConfigData {
     public boolean soulFireSpitter = true;
     public boolean fireworkStarBlock = true;
     public boolean chorusGourdAndCultivatedShulkers = true;
+    public boolean horseshoes = true;
     public boolean rideableRavagers = true;
-    public boolean horseShoes = true;
+    public boolean pillagerFireworks = true;
 }
