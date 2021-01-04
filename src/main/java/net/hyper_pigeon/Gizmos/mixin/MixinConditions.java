@@ -13,10 +13,11 @@ import java.util.Set;
 
 public class MixinConditions implements IMixinConfigPlugin {
     static {
+        // must register here, registering in Gizmos doesn't happen in time
         AutoConfig.register(GizmosConfig.class, GsonConfigSerializer::new);
     }
 
-    private static final GizmosConfig CONFIG = AutoConfig.getConfigHolder(GizmosConfig.class).getConfig();
+    public static final GizmosConfig CONFIG = AutoConfig.getConfigHolder(GizmosConfig.class).getConfig();
 
     @Override
     public void onLoad(String mixinPackage) {
