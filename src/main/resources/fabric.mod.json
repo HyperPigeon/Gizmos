@@ -20,11 +20,20 @@
     ],
     "client": [
       "net.hyper_pigeon.Gizmos.GizmosClient"
+    ],
+    "modmenu": [
+      "net.hyper_pigeon.Gizmos.config.GizmosModMenuIntegration"
     ]
   },
   
-  "requires": {
-    "fabricloader": ">=0.4.0"
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": ">=0.29"
+  },
+
+  "recommends": {
+    "recipeconditions": "*",
+    "modmenu": "*"
   },
   
   "mixins": [

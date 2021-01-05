@@ -28,5 +28,8 @@
     "data": {
       "Damage": 250
     }
-  }
+  },
+  "frc:conditions": [
+    { "recipeconditions:item_registered": "gizmos:soul_fire_spitter" }
+  ]
 }

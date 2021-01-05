@@ -1,6 +1,7 @@
 package net.hyper_pigeon.Gizmos.registry;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.blocks.*;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Material;
@@ -36,14 +37,17 @@ public class GizmoBlocks {
 //            Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("gizmos","firework_crafting_block"), BlockEntityType.Builder.create(FireworkCraftingBlockEntity::new, FIREWORK_CRAFTING_BLOCK).build(null));
 
     public static void init(){
-        Registry.register(Registry.BLOCK, new Identifier("gizmos", "chorus_gourd"), CHORUS_GOURD);
-        Registry.register(Registry.ITEM, new Identifier("gizmos", "chorus_gourd"),
-                new BlockItem(CHORUS_GOURD, new Item.Settings().group(ItemGroup.MISC)));
+        if (Gizmos.CONFIG.chorusGourdAndCultivatedShulkers) {
+            Registry.register(Registry.BLOCK, new Identifier("gizmos", "chorus_gourd"), CHORUS_GOURD);
+            Registry.register(Registry.ITEM, new Identifier("gizmos", "chorus_gourd"),
+                    new BlockItem(CHORUS_GOURD, new Item.Settings().group(ItemGroup.MISC)));
+        }
 
-
-        Registry.register(Registry.BLOCK, new Identifier("gizmos", "firework_star_block"), FIREWORK_STAR_BLOCK);
-        Registry.register(Registry.ITEM, new Identifier("gizmos", "firework_star_block"),
-                new BlockItem(FIREWORK_STAR_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
+        if (Gizmos.CONFIG.fireworkStarBlock) {
+            Registry.register(Registry.BLOCK, new Identifier("gizmos", "firework_star_block"), FIREWORK_STAR_BLOCK);
+            Registry.register(Registry.ITEM, new Identifier("gizmos", "firework_star_block"),
+                    new BlockItem(FIREWORK_STAR_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
+        }
 
 
 //        Registry.register(Registry.BLOCK, new Identifier("gizmos", "firework_crafting_block"), FIREWORK_CRAFTING_BLOCK);

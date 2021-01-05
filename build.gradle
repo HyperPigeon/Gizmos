@@ -35,6 +35,10 @@ repositories {
 		name = "CottonMC"
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
+
+	maven {
+		url = "https://ytg1234.github.io/maven"
+	}
 }
 
 dependencies {
@@ -47,6 +51,18 @@ dependencies {
 	modImplementation "de.siphalor:nbtcrafting-1.16:2+"
 
 	modImplementation "io.github.cottonmc:LibGui:${project.libGui_version}"
+
+	// Config library
+	modApi ("me.shedaniel.cloth:config-2:4.8.3") { exclude module: 'fabric-api' }
+	include "me.shedaniel.cloth:config-2:4.8.3"
+	// Config ease-of-use
+	modApi ("me.sargunvohra.mcmods:autoconfig1u:3.3.1") { exclude module: 'fabric-api' }
+	include "me.sargunvohra.mcmods:autoconfig1u:3.3.1"
+	// Config menu support, optional dependency
+	modImplementation ("io.github.prospector:modmenu:1.14.13+build.19") { exclude module: 'fabric-api' }
+	// Recipe conditions, optional dependency
+	modImplementation("io.github.ytg1234:fabric-recipe-conditions:0.4.0")
+
 
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }

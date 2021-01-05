@@ -1,5 +1,6 @@
 package net.hyper_pigeon.Gizmos.registry;
 
+import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.items.Horseshoes;
 import net.hyper_pigeon.Gizmos.items.Slingshot;
 import net.hyper_pigeon.Gizmos.items.SoulFireSpitter;
@@ -27,9 +28,14 @@ public class GizmoItems {
             EntityAttributeModifier.Operation.fromId(0));
 
     public static void init(){
-        Registry.register(Registry.ITEM,new Identifier("gizmos","soul_fire_spitter"), SOUL_FIRE_SPITTER);
-        Registry.register(Registry.ITEM, new Identifier("gizmos","slingshot"), SLINGSHOT);
-        Registry.register(Registry.ITEM, new Identifier("gizmos","horseshoes"), HORSESHOES);
+        if (Gizmos.CONFIG.soulFireSpitter)
+            Registry.register(Registry.ITEM,new Identifier("gizmos","soul_fire_spitter"), SOUL_FIRE_SPITTER);
+
+        if (Gizmos.CONFIG.slingShot)
+            Registry.register(Registry.ITEM, new Identifier("gizmos","slingshot"), SLINGSHOT);
+
+        if (Gizmos.CONFIG.horseshoes)
+            Registry.register(Registry.ITEM, new Identifier("gizmos","horseshoes"), HORSESHOES);
     }
 
 }

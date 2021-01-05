@@ -2,6 +2,7 @@ package net.hyper_pigeon.Gizmos.registry;
 
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.entities.CultivatedShulkerEntity;
 import net.hyper_pigeon.Gizmos.entities.TamedRavagerEntity;
 import net.minecraft.entity.EntityDimensions;
@@ -26,7 +27,10 @@ public class GizmoEntities {
 
 
     public static void init(){
-        FabricDefaultAttributeRegistry.register(CULTIVATED_SHULKER_ENTITY, ShulkerEntity.createShulkerAttributes());
-        FabricDefaultAttributeRegistry.register(TAMED_RAVAGER_ENTITY, RavagerEntity.createRavagerAttributes());
+        if (Gizmos.CONFIG.chorusGourdAndCultivatedShulkers)
+            FabricDefaultAttributeRegistry.register(CULTIVATED_SHULKER_ENTITY, ShulkerEntity.createShulkerAttributes());
+
+        if (Gizmos.CONFIG.rideableRavagers)
+            FabricDefaultAttributeRegistry.register(TAMED_RAVAGER_ENTITY, RavagerEntity.createRavagerAttributes());
     }
 }
