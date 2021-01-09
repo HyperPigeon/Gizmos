@@ -12,4 +12,5 @@ public class GizmosConfig implements ConfigData {
     public boolean horseshoes = true;
     public boolean rideableRavagers = true;
     public boolean pillagerFireworks = true;
+    public boolean statusInfusedSnowGolems = true;
 }

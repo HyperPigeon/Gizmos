@@ -51,6 +51,10 @@ public class MixinConditions implements IMixinConfigPlugin {
                     "ZombieHorseEntityMixin");
         }
 
+        if(mixinClassName.endsWith("SnowGolemEntityMixin")){
+            return CONFIG.statusInfusedSnowGolems;
+        }
+
         return true;
     }
 

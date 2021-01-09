@@ -18,12 +18,13 @@ import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.CraftingResultSlot;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreenHandler {
+public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreenHandler<CraftingInventory> {
     private final CraftingInventory input;
     private final CraftingResultInventory result;
     private final ScreenHandlerContext context;
@@ -43,71 +44,54 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
 
         int m;
         int l;
-        int index = 0;
 
-        for(m = 0; m < 4; ++m) {
-            for(l = 0; l < 1; ++l) {
-
-                switch(index){
-                    case 0:
-                        this.addSlot(new Slot(this.input, index,  14 + l * 18, 5 + m * 18){
+        for(m = 0; m < 4; ++m){
+            for(l = 0; l < 4; ++l){
+                if((l + m * 4) == 0){
+                    this.addSlot(new Slot(this.input, 0,  14 + l * 18, 5 + m * 18){
                             public boolean canInsert(ItemStack stack) {
                                 return stack.getItem().equals(Items.GUNPOWDER);
                             }
                         });
-                        break;
-
-//                    case 1:
-//                        this.addSlot(new Slot(this.input, index, 30 + l * 18, 17 + m * 18){
-//                            public boolean canInsert(ItemStack stack) {
-//                                return stack.getItem() instanceof DyeItem;
-//                            }
-//                        });
-//                        break;
-//
-//                    case 3:
-//                        this.addSlot(new Slot(this.input, index, 30 + l * 18, 17 + m * 18){
-//                            public boolean canInsert(ItemStack stack) {
-//                                return stack.getItem() instanceof DyeItem;
-//                            }
-//                        });
-//                        break;
-
-                    case 2:
-                        this.addSlot(new Slot(this.input, index, 14 + l * 18, 5 + m * 18){
+                }
+                else if((l + m * 4) == 4){
+                    this.addSlot(new Slot(this.input, 4, 14 + l * 18, 5 + m * 18){
+                            public boolean canInsert(ItemStack stack) {
+                                return (stack.getItem().equals(Items.FIRE_CHARGE))||
+                                        (stack.getItem().equals(Items.GOLD_NUGGET))||
+                                        (stack.getItem().equals(Items.FEATHER))||
+                                        (stack.getItem().equals(Items.WITHER_SKELETON_SKULL))||
+                                        (stack.getItem().equals(Items.PLAYER_HEAD))||
+                                        (stack.getItem().equals(Items.SKELETON_SKULL))||
+                                        (stack.getItem().equals(Items.CREEPER_HEAD))||
+                                        (stack.getItem().equals(Items.ZOMBIE_HEAD));
+                            }
+                        });
+                }
+                else if((l + m * 4) == 8){
+                    this.addSlot(new Slot(this.input, 8, 14 + l * 18, 5 + m * 18){
                             public boolean canInsert(ItemStack stack) {
                                 return stack.getItem().equals(Items.DIAMOND);
                             }
                         });
-                        break;
-
-                    case 3:
-                        this.addSlot(new Slot(this.input, index,14 + l * 18, 5 + m * 18){
+                }
+                else if((l + m * 4) == 12){
+                    this.addSlot(new Slot(this.input, 12,14 + l * 18, 5 + m * 18){
                             public boolean canInsert(ItemStack stack) {
                                 return stack.getItem().equals(Items.GLOWSTONE_DUST);
                             }
                         });
-                        break;
-                    default:
-                        this.addSlot(new Slot(this.input, index, 14 + l * 18, 5 + m * 18));
-                        break;
                 }
-
-                //this.addSlot(new Slot(this.input, index, 30 + l * 18, 17 + m * 18));
-                index++;
+                else {
+                    this.addSlot(new Slot(this.input, l + m * 4,  21 + l * 18, 5 + m * 18) {
+                        public boolean canInsert(ItemStack stack) {
+                            return stack.getItem() instanceof DyeItem;
+                        }
+                     });
+                }
             }
         }
 
-        for(m = 0; m < 4; ++m) {
-            for(l = 1; l < 4; ++l) {
-                this.addSlot(new Slot(this.input, index,  21 + l * 18, 5 + m * 18) {
-                    public boolean canInsert(ItemStack stack) {
-                        return stack.getItem() instanceof DyeItem;
-                    }
-                });
-                index++;
-            }
-        }
     
         for(m = 0; m < 3; ++m) {
             for(l = 0; l < 9; ++l) {
@@ -180,22 +164,22 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
                 this.context.run((world, blockPos) -> {
                     itemStack2.getItem().onCraft(itemStack2, world, player);
                 });
-                if (!this.insertItem(itemStack2, 10, 46, true)) {
+                if (!this.insertItem(itemStack2, 17, 53, true)) {
                     return ItemStack.EMPTY;
                 }
 
                 slot.onStackChanged(itemStack2, itemStack);
-            } else if (index >= 10 && index < 46) {
-                if (!this.insertItem(itemStack2, 1, 10, false)) {
-                    if (index < 37) {
-                        if (!this.insertItem(itemStack2, 37, 46, false)) {
+            } else if (index >= 17 && index < 53) {
+                if (!this.insertItem(itemStack2, 1, 17, false)) {
+                    if (index < 44) {
+                        if (!this.insertItem(itemStack2, 44, 53, false)) {
                             return ItemStack.EMPTY;
                         }
-                    } else if (!this.insertItem(itemStack2, 10, 37, false)) {
+                    } else if (!this.insertItem(itemStack2, 17, 44, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
-            } else if (!this.insertItem(itemStack2, 10, 46, false)) {
+            } else if (!this.insertItem(itemStack2, 17, 53, false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -218,6 +202,7 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
         return itemStack;
     }
 
+
     public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
         return slot.inventory != this.result && super.canInsertIntoSlot(stack, slot);
     }
@@ -236,7 +221,7 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
 
     @Environment(EnvType.CLIENT)
     public int getCraftingSlotCount() {
-        return 7;
+        return 17;
     }
 
     @Environment(EnvType.CLIENT)
