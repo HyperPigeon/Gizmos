@@ -13,17 +13,27 @@
 
   "item.gizmos.horseshoes": "Horseshoes",
 
-  "text.autoconfig.gizmos.option.slingShot": "Enable sling shot",
+  "item.gizmos.eye_of_ender_arrow": "Seeker Arrow",
 
-  "text.autoconfig.gizmos.option.soulFireSpitter": "Enable soul fire spitter",
+  "entity.gizmos.tamed_ravager": "Tamed Ravager",
 
-  "text.autoconfig.gizmos.option.fireworkStarBlock": "Enable firework star block",
+  "entity.gizmos.cultivated_shulker": "Cultivated Shulker",
 
-  "text.autoconfig.gizmos.option.chorusGourdAndCultivatedShulkers": "Enable chorus gourd and cultivated shulkers",
+  "text.autoconfig.gizmos.option.slingShot": "Enable Slingshot",
 
-  "text.autoconfig.gizmos.option.horseshoes": "Enable horseshoes",
+  "text.autoconfig.gizmos.option.soulFireSpitter": "Enable Soul Fire Spitter",
 
-  "text.autoconfig.gizmos.option.rideableRavagers": "Enable rideable ravagers",
+  "text.autoconfig.gizmos.option.fireworkStarBlock": "Enable Firework Star Block",
 
-  "text.autoconfig.gizmos.option.pillagerFireworkStars": "Enable pillager firework stars"
+  "text.autoconfig.gizmos.option.chorusGourdAndCultivatedShulkers": "Enable Chorus Gourd and Cultivated Shulkers",
+
+  "text.autoconfig.gizmos.option.horseshoes": "Enable Horseshoes",
+
+  "text.autoconfig.gizmos.option.rideableRavagers": "Enable Rideable Ravagers",
+
+  "text.autoconfig.gizmos.option.pillagerFireworks": "Enable pillagers using fireworks as ammo",
+
+  "text.autoconfig.gizmos.option.statusInfusedSnowGolems": "Enable status-infused Snow Golems",
+
+  "text.autoconfig.gizmos.option.seeker_arrows": "Enable seeker arrows"
 }

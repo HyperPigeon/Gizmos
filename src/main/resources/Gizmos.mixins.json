@@ -5,15 +5,18 @@
   "plugin": "net.hyper_pigeon.Gizmos.mixin.MixinConditions",
   "mixins": [
     "BipedEntityModelMixin",
+    "EndermanEntityMixin",
     "HorseBaseEntityMixin",
     "HorseEntityMixin",
     "IronGolemEntityMixin",
     "PillagerEntityMixin",
     "RavagerEntityMixin",
     "SkeletonHorseEntityMixin",
+    "SnowGolemEntityMixin",
     "ZombieHorseEntityMixin"
   ],
   "client": [
+    "ClientPlayNetworkHandlerMixin"
   ],
   "server": [
   ],

@@ -22,6 +22,10 @@ public class GizmoBlocks {
     public static final FireworkStarBlock FIREWORK_STAR_BLOCK =
             new FireworkStarBlock(AbstractBlock.Settings.of(Material.METAL, MaterialColor.GRAY).strength(1.0F).sounds(BlockSoundGroup.METAL));
 
+//    public static final InfusedSnowBlock INFUSED_SNOW_BLOCK =
+//            new InfusedSnowBlock(AbstractBlock.Settings.of(Material.SNOW_BLOCK, MaterialColor.WHITE).
+//                    strength(1.0F).sounds(BlockSoundGroup.SNOW));
+
 //    public static final FireworkCraftingBlock FIREWORK_CRAFTING_BLOCK =
 //            new FireworkCraftingBlock(AbstractBlock.Settings.of(Material.NETHER_WOOD, MaterialColor.BROWN).strength(1.0F).sounds(BlockSoundGroup.WOOD));
 
@@ -31,7 +35,14 @@ public class GizmoBlocks {
 
     //The parameter of build at the very end is always null, do not worry about it
     public static final BlockEntityType<FireworkStarBlockEntity> FIREWORK_STAR_BLOCK_ENTITY =
-            Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("gizmos","firework_star_block"), BlockEntityType.Builder.create(FireworkStarBlockEntity::new, FIREWORK_STAR_BLOCK).build(null));
+            Registry.register(Registry.BLOCK_ENTITY_TYPE,
+                    new Identifier("gizmos","firework_star_block"),
+                    BlockEntityType.Builder.create(FireworkStarBlockEntity::new, FIREWORK_STAR_BLOCK).build(null));
+
+//    public static final BlockEntityType<InfusedSnowBlockEntity> INFUSED_SNOW_BLOCK_ENTITY =
+//            Registry.register(Registry.BLOCK_ENTITY_TYPE,
+//                    new Identifier("gizmos", "infused_snow_block"),
+//                    BlockEntityType.Builder.create(InfusedSnowBlockEntity::new,INFUSED_SNOW_BLOCK).build(null));
 
 //    public static final BlockEntityType<FireworkCraftingBlockEntity> FIREWORK_CRAFTING_BLOCK_ENTITY =
 //            Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("gizmos","firework_crafting_block"), BlockEntityType.Builder.create(FireworkCraftingBlockEntity::new, FIREWORK_CRAFTING_BLOCK).build(null));

@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(IronGolemEntity.class)
@@ -34,6 +35,7 @@ public abstract class IronGolemEntityMixin extends GolemEntity implements Angera
                                                         CallbackInfoReturnable<Boolean> callbackInfoReturnable){
         return livingEntity instanceof Monster && !(livingEntity instanceof CreeperEntity) && !(livingEntity instanceof TamedMonster);
     }
+
 
 //    //apply enchanted books to the iron golem
 //    @Inject(at = @At("HEAD"), method = "interactMob", cancellable = true)

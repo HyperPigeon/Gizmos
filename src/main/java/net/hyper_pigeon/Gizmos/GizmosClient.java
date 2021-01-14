@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.hyper_pigeon.Gizmos.blocks.FireworkStarBlockScreen;
 import net.hyper_pigeon.Gizmos.entities.CultivatedShulkerEntityRenderer;
+import net.hyper_pigeon.Gizmos.entities.EyeOfEnderArrowEntityRenderer;
 import net.hyper_pigeon.Gizmos.entities.TamedRavagerEntityRenderer;
 import net.hyper_pigeon.Gizmos.registry.GizmoBlocks;
 import net.hyper_pigeon.Gizmos.registry.GizmoEntities;
@@ -25,7 +26,12 @@ public class GizmosClient implements ClientModInitializer {
             return new RavagerEntityRenderer(dispatcher);
         });
 
+        EntityRendererRegistry.INSTANCE.register(GizmoEntities.EYE_OF_ENDER_ARROW_ENTITY, (dispatcher, context) -> {
+            return new EyeOfEnderArrowEntityRenderer(dispatcher);
+        });
+
         ScreenRegistry.register(GizmoBlocks.FIREWORK_STAR_BLOCK_CRAFTING_SCREEN_HANDLER_SCREEN_HANDLER_TYPE, FireworkStarBlockScreen::new);
+
 
 
     }
