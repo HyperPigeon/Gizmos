@@ -12,6 +12,7 @@
     "RavagerEntityMixin",
     "SkeletonHorseEntityMixin",
     "SnowGolemEntityMixin",
+    "StatusEffectInstanceAccessor",
     "ZombieHorseEntityMixin"
   ],
   "client": [
