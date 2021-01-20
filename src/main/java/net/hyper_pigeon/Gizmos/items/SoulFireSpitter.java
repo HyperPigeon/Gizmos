@@ -89,7 +89,9 @@ public class SoulFireSpitter extends ToolItem {
 
 
         float f = -MathHelper.sin(playerEntity.yaw * 0.017453292F) * MathHelper.cos(playerEntity.pitch * 0.017453292F);
-        float g = -MathHelper.sin((playerEntity.pitch + playerEntity.getRoll()) * 0.017453292F);
+        float g = -MathHelper.sin((playerEntity.pitch +
+                (playerEntity.world.isClient ? playerEntity.getRoll() : 0)) *
+                0.017453292F);
         float h = MathHelper.cos(playerEntity.yaw * 0.017453292F) * MathHelper.cos(playerEntity.pitch* 0.017453292F);
 
         if(itemStack.getDamage() < itemStack.getMaxDamage()) {
