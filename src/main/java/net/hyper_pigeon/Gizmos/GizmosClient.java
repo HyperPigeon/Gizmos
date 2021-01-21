@@ -74,9 +74,6 @@ public class GizmosClient implements ClientModInitializer {
 
 
         ScreenRegistry.register(GizmoBlocks.FIREWORK_STAR_BLOCK_CRAFTING_SCREEN_HANDLER_SCREEN_HANDLER_TYPE, FireworkStarBlockScreen::new);
-
-
-
     }
 
 }

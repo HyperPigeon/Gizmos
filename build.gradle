@@ -22,6 +22,10 @@ repositories {
 	maven { url "https://server.bbkr.space/artifactory/libs-release" } // Cotton maven - home of Cotton projects
 	maven { url "https://maven.abusedmaster.xyz" } // NerdHub maven
 	maven {
+		name = "Devan-Kerman" // for ARRP
+		url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
+	}
+	maven {
 		name = "Onyx Studios"
 		url = "https://maven.onyxstudios.dev"
 	}
@@ -62,7 +66,7 @@ dependencies {
 	modImplementation ("io.github.prospector:modmenu:1.14.13+build.19") { exclude module: 'fabric-api' }
 	// Recipe conditions, optional dependency
 	modImplementation("io.github.ytg1234:fabric-recipe-conditions:0.4.0")
-
+	modImplementation group: 'net.devtech', name: 'arrp', version: '0.3.2'
 
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
