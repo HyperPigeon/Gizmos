@@ -1,10 +1,7 @@
 package net.hyper_pigeon.Gizmos;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.SemanticVersion;
-import net.fabricmc.loader.api.VersionParsingException;
-import net.hyper_pigeon.Gizmos.config.ConditionalResourceLoader;
+import net.hyper_pigeon.Gizmos.config.GizmosResources;
 import net.hyper_pigeon.Gizmos.config.GizmosConfig;
 import net.hyper_pigeon.Gizmos.mixin.MixinConditions;
 import net.hyper_pigeon.Gizmos.registry.GizmoBlocks;
@@ -24,6 +21,6 @@ public class Gizmos implements ModInitializer {
 		GizmoItems.init();
 		GizmoEntities.init();
 		GizmoBlocks.init();
-		ConditionalResourceLoader.load();
+		GizmosResources.init();
 	}
 }

@@ -158,7 +158,7 @@ public class SoulFireSpitter extends ToolItem {
 
 
 
-        return TypedActionResult.pass(itemStack);
+        return TypedActionResult.success(itemStack);
         //return new TypedActionResult<>(ActionResult.SUCCESS, playerEntity.getStackInHand(hand));
     }
     public int getMaxUseTime(ItemStack stack) {
