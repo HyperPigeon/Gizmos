@@ -7,5 +7,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(StatusEffectInstance.class)
 public interface StatusEffectInstanceAccessor {
     @Accessor
-    void setPermanent(boolean permanent);
+    void setDuration(int duration);
 }

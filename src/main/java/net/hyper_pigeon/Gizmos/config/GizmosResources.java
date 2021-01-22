@@ -44,15 +44,10 @@ public interface GizmosResources {
         }
 
         if (CONFIG.chorusGourdAndCultivatedShulkers) {
-            final String gourdIdString = addSimpleBlockState("chorus_gourd");
+            final String chorusGourd = "chorus_gourd";
+            final String gourdIdString = addSimpleBlockState(chorusGourd);
 
-            JLootTable chorusGourdTable = JLootTable.loot("block").pool(JLootTable.pool()
-                    .rolls(1)
-                        .entry(JLootTable.entry().type("item")
-                            .name(gourdIdString))
-                    .condition(JLootTable.predicate("survives_explosion")));
-
-            RESOURCE_PACK.addLootTable(new Identifier(gourdIdString), chorusGourdTable);
+            addSimpleBlockLootTable(chorusGourd);
 
             JRecipe chorusGourdRecipe = JRecipe.shaped(
                     JPattern.pattern(
@@ -68,7 +63,10 @@ public interface GizmosResources {
         }
 
         if (CONFIG.fireworkStarBlock) {
-            final String tableIdString = addSimpleBlockState("firework_star_block");
+            final String fireworkStarBlock = "firework_star_block";
+            final String tableIdString = addSimpleBlockState(fireworkStarBlock);
+
+            addSimpleBlockLootTable(fireworkStarBlock);
 
             JRecipe tableRecipe = JRecipe.shaped(
                     JPattern.pattern(
@@ -135,9 +133,19 @@ public interface GizmosResources {
             RESOURCE_PACK.addRecipe(new Identifier(spitterIdString), spitterRecipe);
         }
 
-        RESOURCE_PACK.dump();
+//        RESOURCE_PACK.dump();
 
         RRPCallback.EVENT.register(a -> a.add(RESOURCE_PACK));
+    }
+
+    static void addSimpleBlockLootTable(String blockItemName) {
+        JLootTable lootTable = JLootTable.loot("block").pool(JLootTable.pool()
+                .rolls(1)
+                    .entry(JLootTable.entry().type("item")
+                        .name(MOD_ID_DELIMITED + blockItemName))
+                .condition(JLootTable.predicate("survives_explosion")));
+
+        RESOURCE_PACK.addLootTable(new Identifier(MOD_ID_DELIMITED + "blocks/" + blockItemName), lootTable);
     }
 
     static String addSimpleBlockState(String blockName) {

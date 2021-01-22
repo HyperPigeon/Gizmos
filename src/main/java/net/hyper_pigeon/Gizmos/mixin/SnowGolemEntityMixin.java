@@ -35,6 +35,8 @@ import java.util.List;
 @Mixin(SnowGolemEntity.class)
 public abstract class SnowGolemEntityMixin extends GolemEntity implements Shearable, RangedAttackMob {
 
+    private static final int permanentDuration = 32767; // from EntityStatusEffectS2CPacket#isPermanent()
+    
     private StatusEffectInstance statusEffectInstance_one;
 
 
@@ -71,35 +73,35 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
 
             if(statusEffectInstance_one != null) {
                 if (statusEffectInstance_one.getEffectType().equals(StatusEffects.FIRE_RESISTANCE)) {
-                    ((StatusEffectInstanceAccessor)statusEffectInstance_one).setPermanent(true);
+                    makePermanent();
                     this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.INVISIBILITY)) {
-                    ((StatusEffectInstanceAccessor)statusEffectInstance_one).setPermanent(true);
+                    makePermanent();
                     this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.WATER_BREATHING)) {
-                    ((StatusEffectInstanceAccessor)statusEffectInstance_one).setPermanent(true);
+                    makePermanent();
                     this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.SPEED)) {
-                    ((StatusEffectInstanceAccessor)statusEffectInstance_one).setPermanent(true);
+                    makePermanent();
                     this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.REGENERATION)) {
-                    ((StatusEffectInstanceAccessor)statusEffectInstance_one).setPermanent(true);
+                    makePermanent();
                     this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.SLOW_FALLING)) {
-                    ((StatusEffectInstanceAccessor)statusEffectInstance_one).setPermanent(true);
+                    makePermanent();
                     this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.RESISTANCE)) {
-                    ((StatusEffectInstanceAccessor)statusEffectInstance_one).setPermanent(true);
+                    makePermanent();
                     this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.STRENGTH)) {
-                    ((StatusEffectInstanceAccessor)statusEffectInstance_one).setPermanent(true);
+                    makePermanent();
                     this.addStatusEffect(statusEffectInstance_one);
                 }
             }
@@ -107,6 +109,12 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
             player.getMainHandStack().decrement(1);
             player.giveItemStack(new ItemStack(Items.GLASS_BOTTLE));
         }
+    }
+
+    private void makePermanent() {
+        ((StatusEffectInstanceAccessor)statusEffectInstance_one).setDuration(permanentDuration);
+        if (this.world.isClient)
+            statusEffectInstance_one.setPermanent(true);
     }
 
     @Inject(at = @At("RETURN"), method = "hurtByWater", cancellable = true)
