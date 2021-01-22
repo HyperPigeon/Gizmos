@@ -19,40 +19,16 @@ public interface GizmosResources {
 
     static void init() {
         if (CONFIG.seeker_arrows) {
-            final JTag seekerArrowTag = tag().add(new Identifier(MOD_ID_DELIMITED + "eye_of_ender_arrow"));
+            final String eyeOfEnderArrow = "eye_of_ender_arrow";
+
+            final JTag seekerArrowTag = tag().add(new Identifier(MOD_ID_DELIMITED + eyeOfEnderArrow));
             RESOURCE_PACK.addTag(new Identifier("items/arrows"),
                     seekerArrowTag);
             RESOURCE_PACK.addTag(new Identifier("entities/arrows"),
                     seekerArrowTag);
-        }
 
-        if (CONFIG.chorusGourdAndCultivatedShulkers) {
-            final String chorusGourd = "chorus_gourd";
-            addSimpleBlockState(chorusGourd);
-            JLootTable chorusGourdTable = JLootTable.loot("block").pool(JLootTable.pool()
-                    .rolls(1)
-                        .entry(JLootTable.entry().type("item")
-                            .name(MOD_ID_DELIMITED + chorusGourd))
-                    .condition(JLootTable.predicate("survives_explosion")));
 
-            RESOURCE_PACK.addLootTable(new Identifier(MOD_ID_DELIMITED + chorusGourd), chorusGourdTable);
-
-            JRecipe chorusGourdRecipe = JRecipe.shaped(
-                    JPattern.pattern(
-                        "CCC",
-                        "CPC",
-                        "CCC"),
-                    JKeys.keys()
-                        .key("C", JIngredient.ingredient().item("chorus_flower"))
-                        .key("P", JIngredient.ingredient().item("pumpkin")),
-                    JResult.result(MOD_ID_DELIMITED + chorusGourd));
-
-            RESOURCE_PACK.addRecipe(new Identifier(chorusGourd), chorusGourdRecipe);
-        }
-
-        if (CONFIG.seeker_arrows) {
-            final String eyeOfEnderArrow = "eye_of_ender_arrow";
-
+            final String arrowIdString = MOD_ID_DELIMITED + eyeOfEnderArrow;
             JRecipe arrowRecipe = JRecipe.shaped(
                     JPattern.pattern(
                             "E",
@@ -62,15 +38,37 @@ public interface GizmosResources {
                             .key("E", JIngredient.ingredient().item("ender_eye"))
                             .key("#", JIngredient.ingredient().item("stick"))
                             .key("Y", JIngredient.ingredient().item("feather")),
-                    JResult.stackedResult(MOD_ID_DELIMITED + eyeOfEnderArrow, 4));
+                    JResult.stackedResult(arrowIdString, 4));
 
-            RESOURCE_PACK.addRecipe(new Identifier(MOD_ID_DELIMITED), arrowRecipe);
+            RESOURCE_PACK.addRecipe(new Identifier(arrowIdString), arrowRecipe);
+        }
+
+        if (CONFIG.chorusGourdAndCultivatedShulkers) {
+            final String gourdIdString = addSimpleBlockState("chorus_gourd");
+
+            JLootTable chorusGourdTable = JLootTable.loot("block").pool(JLootTable.pool()
+                    .rolls(1)
+                        .entry(JLootTable.entry().type("item")
+                            .name(gourdIdString))
+                    .condition(JLootTable.predicate("survives_explosion")));
+
+            RESOURCE_PACK.addLootTable(new Identifier(gourdIdString), chorusGourdTable);
+
+            JRecipe chorusGourdRecipe = JRecipe.shaped(
+                    JPattern.pattern(
+                        "CCC",
+                        "CPC",
+                        "CCC"),
+                    JKeys.keys()
+                        .key("C", JIngredient.ingredient().item("chorus_flower"))
+                        .key("P", JIngredient.ingredient().item("pumpkin")),
+                    JResult.result(gourdIdString));
+
+            RESOURCE_PACK.addRecipe(new Identifier(gourdIdString), chorusGourdRecipe);
         }
 
         if (CONFIG.fireworkStarBlock) {
-            final String fireworkStarBlock = "firework_star_block";
-
-            addSimpleBlockState(fireworkStarBlock);
+            final String tableIdString = addSimpleBlockState("firework_star_block");
 
             JRecipe tableRecipe = JRecipe.shaped(
                     JPattern.pattern(
@@ -83,14 +81,14 @@ public interface GizmosResources {
                             .key("P", JIngredient.ingredient().item("paper"))
                             .key("C", JIngredient.ingredient().item("crafting_table"))
                             .key("W", JIngredient.ingredient().tag("logs")),
-                    JResult.result(MOD_ID_DELIMITED + fireworkStarBlock));
+                    JResult.result(tableIdString));
 
-            RESOURCE_PACK.addRecipe(new Identifier(MOD_ID_DELIMITED), tableRecipe);
+            RESOURCE_PACK.addRecipe(new Identifier(tableIdString), tableRecipe);
         }
 
         if (CONFIG.horseshoes) {
-            final String horseshoes = "horseshoes";
 
+            final String shoeIdString = MOD_ID_DELIMITED + "horseshoes";
             JRecipe horseshoesRecipe = JRecipe.shaped(
                     JPattern.pattern(
                             "I I",
@@ -99,15 +97,14 @@ public interface GizmosResources {
                     JKeys.keys()
                             .key("I", JIngredient.ingredient().item("iron_ingot"))
                             .key("D", JIngredient.ingredient().item("diamond")),
-                    JResult.result(MOD_ID_DELIMITED + horseshoes));
+                    JResult.result(shoeIdString));
 
-            RESOURCE_PACK.addRecipe(new Identifier(horseshoes), horseshoesRecipe);
+            RESOURCE_PACK.addRecipe(new Identifier(shoeIdString), horseshoesRecipe);
         }
 
         if (CONFIG.slingShot) {
-            final String slingshot = "slingshot";
-
-            JRecipe chorusGourdRecipe = JRecipe.shaped(
+            final String slingshotIdString = MOD_ID_DELIMITED + "slingshot";
+            JRecipe slingshotRecipe = JRecipe.shaped(
                     JPattern.pattern(
                             "SSS",
                             "W W",
@@ -115,14 +112,13 @@ public interface GizmosResources {
                     JKeys.keys()
                             .key("S", JIngredient.ingredient().item("string"))
                             .key("W", JIngredient.ingredient().item("stick")),
-                    JResult.result(MOD_ID_DELIMITED + slingshot));
+                    JResult.result(slingshotIdString));
 
-            RESOURCE_PACK.addRecipe(new Identifier(slingshot), chorusGourdRecipe);
+            RESOURCE_PACK.addRecipe(new Identifier(slingshotIdString), slingshotRecipe);
         }
 
         if (CONFIG.soulFireSpitter) {
-            final String soulFireSpitter = "soul_fire_spitter";
-
+            final String spitterIdString = MOD_ID_DELIMITED + "soul_fire_spitter";
             JRecipe spitterRecipe = JRecipe.shaped(
                     JPattern.pattern(
                             "  G",
@@ -134,17 +130,22 @@ public interface GizmosResources {
                             .key("D", JIngredient.ingredient().item("dispenser"))
                             .key("C", JIngredient.ingredient().item("cobblestone_wall"))
                             .key("S", JIngredient.ingredient().item("soul_torch")),
-                    JResult.result(MOD_ID_DELIMITED + soulFireSpitter));
+                    JResult.result(spitterIdString));
 
-            RESOURCE_PACK.addRecipe(new Identifier(MOD_ID_DELIMITED), spitterRecipe);
+            RESOURCE_PACK.addRecipe(new Identifier(spitterIdString), spitterRecipe);
         }
+
+        RESOURCE_PACK.dump();
 
         RRPCallback.EVENT.register(a -> a.add(RESOURCE_PACK));
     }
 
-    static void addSimpleBlockState(String blockName) {
+    static String addSimpleBlockState(String blockName) {
+        final String blockIdString = MOD_ID_DELIMITED + blockName;
         RESOURCE_PACK.addBlockState(
                 JState.state(JState.variant(new JBlockModel(new Identifier(MOD_ID_DELIMITED + "block/" + blockName)))),
-                new Identifier(MOD_ID_DELIMITED + blockName));
+                new Identifier(blockIdString));
+
+        return blockIdString;
     }
 }
