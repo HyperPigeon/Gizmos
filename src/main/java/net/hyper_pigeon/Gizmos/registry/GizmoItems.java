@@ -1,5 +1,9 @@
 package net.hyper_pigeon.Gizmos.registry;
 
+import io.github.ytg1234.recipeconditions.api.RecipeConds;
+import io.github.ytg1234.recipeconditions.api.condition.base.RecipeCondition;
+import io.github.ytg1234.recipeconditions.api.condition.base.RecipeConditionParameter;
+import io.github.ytg1234.recipeconditions.api.condition.util.RecipeCondsUtil;
 import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.entities.EyeOfEnderArrowEntity;
 import net.hyper_pigeon.Gizmos.items.EyeOfEnderArrowItem;
@@ -36,6 +40,12 @@ public class GizmoItems {
     public static final EyeOfEnderArrowItem EYE_OF_ENDER_ARROW =
             new EyeOfEnderArrowItem((new Item.Settings()).group(ItemGroup.COMBAT));
 
+    public static final RecipeCondition SEEKER_ENABLED_CONDITION = RecipeCondsUtil.boolParam(
+            param -> {
+                return Gizmos.CONFIG.seeker_arrows;
+            }
+    );
+
     public static void init(){
         if (Gizmos.CONFIG.soulFireSpitter)
             Registry.register(Registry.ITEM,new Identifier("gizmos","soul_fire_spitter"), SOUL_FIRE_SPITTER);
@@ -47,17 +57,19 @@ public class GizmoItems {
             Registry.register(Registry.ITEM, new Identifier("gizmos","horseshoes"), HORSESHOES);
 
 
-        if(Gizmos.CONFIG.seeker_arrows) {
-            Registry.register(Registry.ITEM, new Identifier("gizmos", "eye_of_ender_arrow"), EYE_OF_ENDER_ARROW);
 
-            DispenserBlock.registerBehavior(EYE_OF_ENDER_ARROW, new ProjectileDispenserBehavior() {
+        Registry.register(Registry.ITEM, new Identifier("gizmos", "eye_of_ender_arrow"), EYE_OF_ENDER_ARROW);
+
+        DispenserBlock.registerBehavior(EYE_OF_ENDER_ARROW, new ProjectileDispenserBehavior() {
                 protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
                     PersistentProjectileEntity persistentProjectileEntity = new EyeOfEnderArrowEntity(position.getX(), position.getY(), position.getZ(), world);
                     persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
                     return persistentProjectileEntity;
                 }
-            });
-        }
+        });
+
+        Registry.register(RecipeConds.RECIPE_CONDITION, new Identifier("gizmos", "enabled_condition"), SEEKER_ENABLED_CONDITION);
+
     }
 
 }

@@ -1,5 +1,6 @@
 package net.hyper_pigeon.Gizmos.mixin;
 
+import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.entities.TamedRavagerEntity;
 import net.hyper_pigeon.Gizmos.registry.GizmoEntities;
 import net.minecraft.entity.EntityType;
@@ -32,7 +33,7 @@ public abstract class RavagerEntityMixin extends RaiderEntity {
         ItemStack itemStack = player.getStackInHand(hand);
         Item item = itemStack.getItem();
         if(item == Items.GOLDEN_APPLE){
-            if(this.getHealth() > 1){
+            if(this.getHealth() >= this.getMaxHealth()*Gizmos.CONFIG.ravagerTamingHealthProportion){
                 return ActionResult.PASS;
             }
             else {
