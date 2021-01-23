@@ -40,11 +40,11 @@ public class GizmoItems {
     public static final EyeOfEnderArrowItem EYE_OF_ENDER_ARROW =
             new EyeOfEnderArrowItem((new Item.Settings()).group(ItemGroup.COMBAT));
 
-    public static final RecipeCondition SEEKER_ENABLED_CONDITION = RecipeCondsUtil.boolParam(
-            param -> {
-                return Gizmos.CONFIG.seeker_arrows;
-            }
-    );
+//    public static final RecipeCondition SEEKER_ENABLED_CONDITION = RecipeCondsUtil.boolParam(
+//            param -> {
+//                return Gizmos.CONFIG.seeker_arrows;
+//            }
+//    );
 
     public static void init(){
         if (Gizmos.CONFIG.soulFireSpitter)
@@ -68,7 +68,7 @@ public class GizmoItems {
                 }
         });
 
-        Registry.register(RecipeConds.RECIPE_CONDITION, new Identifier("gizmos", "enabled_condition"), SEEKER_ENABLED_CONDITION);
+        //Registry.register(RecipeConds.RECIPE_CONDITION, new Identifier("gizmos", "enabled_condition"), SEEKER_ENABLED_CONDITION);
 
     }
 

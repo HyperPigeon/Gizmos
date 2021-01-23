@@ -19,8 +19,5 @@
   "result": {
     "item": "gizmos:eye_of_ender_arrow",
     "count": 4
-  },
-  "frc:conditions": [
-    { "gizmos:enabled_condition": "gizmos:eye_of_ender_arrow" }
-  ]
+  }
 }
