@@ -40,11 +40,6 @@ public class GizmoItems {
     public static final EyeOfEnderArrowItem EYE_OF_ENDER_ARROW =
             new EyeOfEnderArrowItem((new Item.Settings()).group(ItemGroup.COMBAT));
 
-//    public static final RecipeCondition SEEKER_ENABLED_CONDITION = RecipeCondsUtil.boolParam(
-//            param -> {
-//                return Gizmos.CONFIG.seeker_arrows;
-//            }
-//    );
 
     public static void init(){
         if (Gizmos.CONFIG.soulFireSpitter)
@@ -57,19 +52,18 @@ public class GizmoItems {
             Registry.register(Registry.ITEM, new Identifier("gizmos","horseshoes"), HORSESHOES);
 
 
+        if(Gizmos.CONFIG.seeker_arrows) {
+            Registry.register(Registry.ITEM, new Identifier("gizmos", "eye_of_ender_arrow"), EYE_OF_ENDER_ARROW);
 
-        Registry.register(Registry.ITEM, new Identifier("gizmos", "eye_of_ender_arrow"), EYE_OF_ENDER_ARROW);
-
-        DispenserBlock.registerBehavior(EYE_OF_ENDER_ARROW, new ProjectileDispenserBehavior() {
+            DispenserBlock.registerBehavior(EYE_OF_ENDER_ARROW, new ProjectileDispenserBehavior() {
                 protected ProjectileEntity createProjectile(World world, Position position, ItemStack stack) {
                     PersistentProjectileEntity persistentProjectileEntity = new EyeOfEnderArrowEntity(position.getX(), position.getY(), position.getZ(), world);
                     persistentProjectileEntity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
                     return persistentProjectileEntity;
                 }
-        });
-
-        //Registry.register(RecipeConds.RECIPE_CONDITION, new Identifier("gizmos", "enabled_condition"), SEEKER_ENABLED_CONDITION);
-
+            });
+        }
+        
     }
 
 }
