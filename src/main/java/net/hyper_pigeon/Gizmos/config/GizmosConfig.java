@@ -14,4 +14,6 @@ public class GizmosConfig implements ConfigData {
     public boolean pillagerFireworks = true;
     public boolean statusInfusedSnowGolems = true;
     public boolean seeker_arrows = true;
+
+    public double ravagerTamingHealthProportion = .25;
 }

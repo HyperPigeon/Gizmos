@@ -35,5 +35,7 @@
 
   "text.autoconfig.gizmos.option.statusInfusedSnowGolems": "Enable status-infused Snow Golems",
 
-  "text.autoconfig.gizmos.option.seeker_arrows": "Enable seeker arrows"
+  "text.autoconfig.gizmos.option.seeker_arrows": "Enable seeker arrows",
+
+  "text.autoconfig.gizmos.option.ravagerTamingHealthProportion": "Health % for Taming Ravagers"
 }
