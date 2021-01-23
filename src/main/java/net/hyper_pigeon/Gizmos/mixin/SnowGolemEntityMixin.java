@@ -35,6 +35,8 @@ import java.util.List;
 @Mixin(SnowGolemEntity.class)
 public abstract class SnowGolemEntityMixin extends GolemEntity implements Shearable, RangedAttackMob {
 
+    private static final int permanentDuration = 32767; // from EntityStatusEffectS2CPacket#isPermanent()
+    
     private StatusEffectInstance statusEffectInstance_one;
 
 
@@ -71,42 +73,48 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
 
             if(statusEffectInstance_one != null) {
                 if (statusEffectInstance_one.getEffectType().equals(StatusEffects.FIRE_RESISTANCE)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.applyStatusEffect(statusEffectInstance_one);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.INVISIBILITY)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.applyStatusEffect(statusEffectInstance_one);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.WATER_BREATHING)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.applyStatusEffect(statusEffectInstance_one);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.SPEED)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.applyStatusEffect(statusEffectInstance_one);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.REGENERATION)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.applyStatusEffect(statusEffectInstance_one);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.SLOW_FALLING)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.applyStatusEffect(statusEffectInstance_one);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.RESISTANCE)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.applyStatusEffect(statusEffectInstance_one);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.STRENGTH)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.applyStatusEffect(statusEffectInstance_one);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
             }
 
             player.getMainHandStack().decrement(1);
             player.giveItemStack(new ItemStack(Items.GLASS_BOTTLE));
         }
+    }
+
+    private void makePermanent() {
+        ((StatusEffectInstanceAccessor)statusEffectInstance_one).setDuration(permanentDuration);
+        if (this.world.isClient)
+            statusEffectInstance_one.setPermanent(true);
     }
 
     @Inject(at = @At("RETURN"), method = "hurtByWater", cancellable = true)

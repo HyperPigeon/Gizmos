@@ -9,7 +9,7 @@
 		"6": "gizmos:misc/furnace_top",
 		"7": "gizmos:misc/black_hopper_texture",
 		"8": "gizmos:misc/blaze_powder_fuel",
-		"particle": "blocks/dispenser_front_horizontal"
+		"particle": "gizmos:misc/dispenser_front_horizontal"
 	},
 	"elements": [
 		{

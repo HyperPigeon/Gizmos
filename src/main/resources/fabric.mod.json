@@ -32,7 +32,6 @@
   },
 
   "recommends": {
-    "recipeconditions": "*",
     "modmenu": "*"
   },
   
