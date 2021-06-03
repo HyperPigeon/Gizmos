@@ -1,5 +1,9 @@
 package net.hyper_pigeon.Gizmos.registry;
 
+import io.github.ytg1234.recipeconditions.api.RecipeConds;
+import io.github.ytg1234.recipeconditions.api.condition.base.RecipeCondition;
+import io.github.ytg1234.recipeconditions.api.condition.base.RecipeConditionParameter;
+import io.github.ytg1234.recipeconditions.api.condition.util.RecipeCondsUtil;
 import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.entities.EyeOfEnderArrowEntity;
 import net.hyper_pigeon.Gizmos.items.EyeOfEnderArrowItem;
@@ -22,7 +26,7 @@ import net.minecraft.world.World;
 public class GizmoItems {
 
     public static final SoulFireSpitter SOUL_FIRE_SPITTER =
-            new SoulFireSpitter(ToolMaterials.IRON, new Item.Settings().maxDamage(251).group(ItemGroup.COMBAT));
+            new SoulFireSpitter(ToolMaterials.IRON, new Item.Settings().group(ItemGroup.COMBAT));
 
     public static final Slingshot SLINGSHOT =
             new Slingshot((new Item.Settings()).maxDamage(100).group(ItemGroup.COMBAT));
@@ -36,7 +40,8 @@ public class GizmoItems {
     public static final EyeOfEnderArrowItem EYE_OF_ENDER_ARROW =
             new EyeOfEnderArrowItem((new Item.Settings()).group(ItemGroup.COMBAT));
 
-    public static void init() {
+
+    public static void init(){
         if (Gizmos.CONFIG.soulFireSpitter)
             Registry.register(Registry.ITEM,new Identifier("gizmos","soul_fire_spitter"), SOUL_FIRE_SPITTER);
 
@@ -58,6 +63,7 @@ public class GizmoItems {
                 }
             });
         }
+        
     }
 
 }

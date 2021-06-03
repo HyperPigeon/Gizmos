@@ -26,9 +26,9 @@ public class EyeOfEnderArrowEntity extends PersistentProjectileEntity {
     private boolean targetDNE = false;
 
 
-    public static final Predicate<LivingEntity> NON_ENDER_ENTITY_AND_GLOWING = (entity) -> {
+    public final Predicate<LivingEntity> NON_ENDER_ENTITY_AND_GLOWING = (entity) -> {
         return entity.getType() != EntityType.ENDER_DRAGON && entity.getType() != EntityType.ENDERMAN &&
-                entity.hasStatusEffect(StatusEffects.GLOWING);
+                entity != getOwner() && entity.hasStatusEffect(StatusEffects.GLOWING);
     };
 
 
@@ -82,19 +82,19 @@ public class EyeOfEnderArrowEntity extends PersistentProjectileEntity {
 
 
                     if(!enderDragonList.isEmpty()){
-                        target = enderDragonList.get(0);
+                        setTarget(enderDragonList.get(0));
                     }
                     else if(!shulkerEntityList.isEmpty()){
-                        target = shulkerEntityList.get(0);
+                        setTarget(shulkerEntityList.get(0));
                     }
                     else if(!endermanList.isEmpty()){
                         //Random rand = new Random();
-                        target = endermanList.get(0);
+                        setTarget(endermanList.get(0));
     //                    EndermanEntity randomEnderman =  endermanList.get(rand.nextInt(endermanList.size()));
     //                    target = randomEnderman;
                     }
                     else if(!livingEntities.isEmpty()){
-                        target = livingEntities.get(0);
+                        setTarget(livingEntities.get(0));
                     }
                     else {
                         targetDNE = true;
