@@ -1,5 +1,5 @@
 plugins {
-	id "fabric-loom" version "0.5-SNAPSHOT"
+	id "fabric-loom" version "0.4-SNAPSHOT"
 	id "maven-publish"
 	id "com.jfrog.artifactory" version "4.15.2"
 }
@@ -21,10 +21,6 @@ minecraft {
 repositories {
 	maven { url "https://server.bbkr.space/artifactory/libs-release" } // Cotton maven - home of Cotton projects
 	maven { url "https://maven.abusedmaster.xyz" } // NerdHub maven
-	maven {
-		name = "Devan-Kerman" // for ARRP
-		url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
-	}
 	maven {
 		name = "Onyx Studios"
 		url = "https://maven.onyxstudios.dev"
@@ -52,9 +48,11 @@ dependencies {
 	
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-//	modImplementation "de.siphalor:nbtcrafting-1.16:2+"
+	modImplementation "de.siphalor:nbtcrafting-1.16:2+"
 
 	modImplementation "io.github.cottonmc:LibGui:${project.libGui_version}"
+
+	//modImplementation "com.github.TeamMidnightDust:ThisRocks:1.2.2"
 
 	// Config library
 	modApi ("me.shedaniel.cloth:config-2:4.8.3") { exclude module: 'fabric-api' }
@@ -65,10 +63,11 @@ dependencies {
 	// Config menu support, optional dependency
 	modImplementation ("io.github.prospector:modmenu:1.14.13+build.19") { exclude module: 'fabric-api' }
 	// Recipe conditions, optional dependency
-//	modImplementation("io.github.ytg1234:fabric-recipe-conditions:0.4.0")
-	// ARRP, conditional resource loading
-	modImplementation group: 'net.devtech', name: 'arrp', version: '0.3.2'
-	include group: 'net.devtech', name: 'arrp', version: '0.3.2'
+	modImplementation("io.github.ytg1234:fabric-recipe-conditions:0.4.0")
+
+	// invoker transformation
+	modImplementation 'com.github.Chocohead:Fabric-ASM:v2.2'
+	include 'com.github.Chocohead:Fabric-ASM:v2.2'
 
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
