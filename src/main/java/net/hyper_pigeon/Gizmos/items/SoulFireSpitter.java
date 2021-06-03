@@ -1,8 +1,10 @@
 package net.hyper_pigeon.Gizmos.items;
 
+import net.hyper_pigeon.Gizmos.registry.GizmoEnchantments;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -88,35 +90,76 @@ public class SoulFireSpitter extends ToolItem {
 
 
 
+
         float f = -MathHelper.sin(playerEntity.yaw * 0.017453292F) * MathHelper.cos(playerEntity.pitch * 0.017453292F);
-        float g = -MathHelper.sin((playerEntity.pitch +
-                (playerEntity.world.isClient ? playerEntity.getRoll() : 0)) *
-                0.017453292F);
+        float g = -MathHelper.sin((playerEntity.pitch + playerEntity.getRoll()) * 0.017453292F);
         float h = MathHelper.cos(playerEntity.yaw * 0.017453292F) * MathHelper.cos(playerEntity.pitch* 0.017453292F);
 
         if(itemStack.getDamage() < itemStack.getMaxDamage()) {
 
-            for (double x = (camera.x - 1); x <= camera.x + 1; x = x+0.2) {
-                for (double y = (camera.y - 1); y <= camera.y + 1; y = y+0.2) {
-                    for (double z = (camera.z - 1); z <= camera.z + 1; z = z+0.2) {
-                        playerEntity.getEntityWorld().addParticle
-                                (ParticleTypes.SOUL_FIRE_FLAME, x + x_increase, y, z + z_increase, 0.01 * f, g,
-                                        0.01 * h);
+            //int particle_stream_length = 5;
+
+            for (double x = flameBox.minX; x <= flameBox.maxX; x += 0.5){
+                for (double y = flameBox.minY; y <= flameBox.maxY; y += 0.5){
+                    for (double z = flameBox.minZ; z <= flameBox.maxZ; z += 0.25){
+
+                        if(Math.random()*100 <= 25){
+                            playerEntity.getEntityWorld().addParticle
+                                    (ParticleTypes.SOUL_FIRE_FLAME, x , y, z , 0.01 , g, 0.01);
+                        }
+
+                        if(Math.random()*100 <= 25) {
+                            playerEntity.getEntityWorld().addParticle(ParticleTypes.SMOKE,x , y, z , 0.01, g, 0.01);
+                        }
+
                     }
                 }
             }
+
+//            for (double x = camera.x; x <= camera.x + 5; x += 0.5){
+//                for (double y = camera.y; y <= camera.y + 5; y += 0.5){
+//                    for (double z = camera.z; z <= camera.z + 5; z += 0.5){
+//                        playerEntity.getEntityWorld().addParticle
+//                                (ParticleTypes.SOUL_FIRE_FLAME, x + x_increase, y, z + z_increase, 0.01 * f, g,
+//                                        0.01 * h);
+//                    }
+//                }
+//            }
+
+//            for (double x = (camera.x - 1); x <= camera.x + 1; x = x+0.2) {
+//                for (double y = (camera.y - 1); y <= camera.y + 1; y = y+0.2) {
+//                    for (double z = (camera.z - 1); z <= camera.z + 1; z = z+0.2) {
+//                        playerEntity.getEntityWorld().addParticle
+//                                (ParticleTypes.SOUL_FIRE_FLAME, x + x_increase, y, z + z_increase, 0.01 * f, g,
+//                                        0.01 * h);
+//                    }
+//                }
+//            }
 
 
 //        MinecraftClient.getInstance().particleManager
 //                .addParticle(new SoulFireSpitterParticle(MinecraftClient.getInstance().world, camera.x, camera.y, camera.z, 0.1*f,g,
 //                        0.1*h));
 
+            int scorching_level = EnchantmentHelper.getLevel(GizmoEnchantments.SCORCHING,itemStack);
+            int afterburn_level = EnchantmentHelper.getLevel(GizmoEnchantments.AFTERBURN,itemStack);
+            int soulburn_level = EnchantmentHelper.getLevel(GizmoEnchantments.SOULBURN, itemStack);
+
+            int damage = 5 + (scorching_level*2);
+            int afterburn_time = 5 + (afterburn_level*2);
+            int soulburn_damange = 1*(soulburn_level);
+
 
             for (LivingEntity livingEntity : list) {
                 if (!livingEntity.equals(playerEntity)) {
                     livingEntity.setAttacker(playerEntity);
-                    livingEntity.setOnFireFor(5);
-                    livingEntity.damage(DamageSource.ON_FIRE, 5);
+                    livingEntity.setOnFireFor(afterburn_time);
+                    livingEntity.damage(DamageSource.IN_FIRE,damage);
+
+                    if(livingEntity.isFireImmune()){
+                        livingEntity.damage(DamageSource.MAGIC, soulburn_damange);
+                    }
+
                 }
 
             }
@@ -158,7 +201,7 @@ public class SoulFireSpitter extends ToolItem {
 
 
 
-        return TypedActionResult.success(itemStack);
+        return TypedActionResult.pass(itemStack);
         //return new TypedActionResult<>(ActionResult.SUCCESS, playerEntity.getStackInHand(hand));
     }
     public int getMaxUseTime(ItemStack stack) {

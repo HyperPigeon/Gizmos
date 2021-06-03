@@ -6,9 +6,9 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 
-public class ScorchingEnchantment extends Enchantment {
+public class SoulburnEnchantment extends Enchantment {
 
-    public ScorchingEnchantment(Rarity weight, EquipmentSlot[] slotTypes) {
+    public SoulburnEnchantment(Rarity weight, EquipmentSlot[] slotTypes) {
         super(weight, ClassTinkerers.getEnum(EnchantmentTarget.class, "SOUL_FIRE_SPITTER"), slotTypes);
     }
 
@@ -25,6 +25,6 @@ public class ScorchingEnchantment extends Enchantment {
     }
 
     public boolean canAccept(Enchantment other){
-        return other != GizmoEnchantments.SOULBURN && super.canAccept(other);
+        return other != GizmoEnchantments.SCORCHING && super.canAccept(other);
     }
 }
