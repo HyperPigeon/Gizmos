@@ -1,5 +1,6 @@
 package net.hyper_pigeon.Gizmos.items;
 
+import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.registry.GizmoEnchantments;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.BlockState;
@@ -98,6 +99,7 @@ public class SoulFireSpitter extends ToolItem {
         if(itemStack.getDamage() < itemStack.getMaxDamage()) {
 
             //int particle_stream_length = 5;
+            world.playSound(playerEntity, playerEntity.getBlockPos(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
 
             for (double x = flameBox.minX; x <= flameBox.maxX; x += 0.5){
                 for (double y = flameBox.minY; y <= flameBox.maxY; y += 0.5){
@@ -164,31 +166,32 @@ public class SoulFireSpitter extends ToolItem {
 
             }
 
-            Iterator iterator = BlockPos.iterate
-                    (MathHelper.floor(flameBox.minX),
-                            MathHelper.floor(flameBox.minY),
-                            MathHelper.floor(flameBox.minZ),
-                            MathHelper.floor(flameBox.maxX),
-                            MathHelper.floor(flameBox.maxY),
-                            MathHelper.floor(flameBox.maxZ)).iterator();
+            if(Gizmos.CONFIG.igniteBlocks){
+                Iterator iterator = BlockPos.iterate
+                        (MathHelper.floor(flameBox.minX),
+                                MathHelper.floor(flameBox.minY),
+                                MathHelper.floor(flameBox.minZ),
+                                MathHelper.floor(flameBox.maxX),
+                                MathHelper.floor(flameBox.maxY),
+                                MathHelper.floor(flameBox.maxZ)).iterator();
 
-            while (iterator.hasNext()) {
-                BlockPos blockPos = (BlockPos) iterator.next();
-                BlockState blockState = world.getBlockState(blockPos);
+                while (iterator.hasNext()) {
+                    BlockPos blockPos = (BlockPos) iterator.next();
+                    BlockState blockState = world.getBlockState(blockPos);
 
-                if (CampfireBlock.method_30035(blockState)) {
-                    world.playSound(playerEntity, blockPos, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
-                    world.setBlockState(blockPos, blockState.with(Properties.LIT, true), 11);
-                } else {
-                    BlockPos blockPos2 = blockPos.offset(playerEntity.getMovementDirection());
-                    if (AbstractFireBlock.method_30032(world, blockPos2, playerEntity.getMovementDirection())) {
-                        world.playSound(playerEntity, blockPos2, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
-                        BlockState blockState2 = AbstractFireBlock.getState(world, blockPos2);
-                        world.setBlockState(blockPos2, blockState2, 11);
+                    if (CampfireBlock.method_30035(blockState)) {
+                        //world.playSound(playerEntity, blockPos, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+                        world.setBlockState(blockPos, blockState.with(Properties.LIT, true), 11);
+                    } else {
+                        BlockPos blockPos2 = blockPos.offset(playerEntity.getMovementDirection());
+                        if (AbstractFireBlock.method_30032(world, blockPos2, playerEntity.getMovementDirection())) {
+                            //world.playSound(playerEntity, blockPos2, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+                            BlockState blockState2 = AbstractFireBlock.getState(world, blockPos2);
+                            world.setBlockState(blockPos2, blockState2, 11);
+                        }
                     }
                 }
             }
-
             //Criteria.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity) playerEntity, itemStack, 1);
 
 //        itemStack.damage(1, playerEntity, ((e) -> {

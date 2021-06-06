@@ -11,7 +11,7 @@ public class SoulFireSpitterPosing {
         //modelPart.yaw = (-0.3F) + head.yaw;
         modelPart2.yaw = (rightArmed ? 0.6F : -0.6F) + head.yaw;
         //modelPart.pitch = -1.5707964F + head.pitch + 0.1F;
-        modelPart2.pitch = -1.5F + head.pitch;
+        modelPart2.pitch = -1.9F + head.pitch;
     }
 
     public static void method_29350(ModelPart modelPart, ModelPart modelPart2, float f) {
