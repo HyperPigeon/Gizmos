@@ -49,6 +49,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	modImplementation "de.siphalor:nbtcrafting-1.16:2+"
+	include "de.siphalor:nbtcrafting-1.16:2+"
 
 	modImplementation "io.github.cottonmc:LibGui:${project.libGui_version}"
 
