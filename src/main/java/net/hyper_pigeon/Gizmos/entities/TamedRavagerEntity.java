@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -43,13 +43,13 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
         this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
     }
 
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public void writeCustomDataToNbt(NbtCompound tag) {
+        super.writeCustomDataToNbt(tag);
         tag.putUuid("OwnerUUID", ownerUUID);
     }
 
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readCustomDataFromNbt(NbtCompound tag) {
+        super.readCustomDataFromNbt(tag);
         setOwnerUUID(tag.getUuid("OwnerUUID"));
     }
 
@@ -116,7 +116,7 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
                 } else {
                     float g = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
                     this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1.0F, g);
-                    if (!player.abilities.creativeMode) {
+                    if (!player.isCreative()) {
                         itemStack.decrement(1);
                     }
 
@@ -131,7 +131,7 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
                 } else {
                     float g = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
                     this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1.0F, g);
-                    if (!player.abilities.creativeMode) {
+                    if (!player.isCreative()) {
                         itemStack.decrement(1);
                     }
 
@@ -172,14 +172,18 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
         if (this.isAlive()) {
             if (this.hasPassengers() && this.canBeControlledByRider() ) {
                 LivingEntity livingEntity = (LivingEntity)this.getPrimaryPassenger();
-                this.yaw = livingEntity.yaw;
-                this.prevYaw = this.yaw;
-                this.pitch = livingEntity.pitch * 0.5F;
-                this.setRotation(this.yaw, this.pitch);
-                this.bodyYaw = this.yaw;
+
+
+                this.setYaw(livingEntity.getYaw());
+                this.prevYaw = this.getYaw();
+
+                this.setPitch(livingEntity.getPitch()*0.5F);
+                this.setRotation(this.getYaw(), this.getPitch());
+
+                this.bodyYaw = this.getYaw();
                 this.headYaw = this.bodyYaw;
                 
-                float f = livingEntity.sidewaysSpeed * 0.35F;
+                float f = livingEntity.sidewaysSpeed;
                 float g = livingEntity.forwardSpeed;
 
                 if (g <= 0.0F) {
@@ -194,7 +198,7 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
                     this.setVelocity(Vec3d.ZERO);
                 }
 
-                this.method_29242(this, false);
+                this.updateLimbs(this, false);
             } else {
                 this.flyingSpeed = 0.02F;
                 super.travel(movementInput);

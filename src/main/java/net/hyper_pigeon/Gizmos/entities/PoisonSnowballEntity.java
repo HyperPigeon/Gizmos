@@ -32,11 +32,11 @@ public class PoisonSnowballEntity extends SnowballEntity {
         if(entity instanceof LivingEntity){
             if(isAmplified){
                 StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.POISON, 10,1);
-                ((LivingEntity) entity).applyStatusEffect(statusEffectInstance);
+                ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
             }
             else {
                 StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.POISON, 5,0);
-                ((LivingEntity) entity).applyStatusEffect(statusEffectInstance);
+                ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
             }
         }
     }

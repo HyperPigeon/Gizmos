@@ -31,11 +31,11 @@ public class SlownessSnowballEntity extends SnowballEntity {
         if(entity instanceof LivingEntity){
             if(isAmplified){
                 StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.SLOWNESS, 15,1);
-                ((LivingEntity) entity).applyStatusEffect(statusEffectInstance);
+                ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
             }
             else {
                 StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.SLOWNESS, 10,0);
-                ((LivingEntity) entity).applyStatusEffect(statusEffectInstance);
+                ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
             }
         }
     }

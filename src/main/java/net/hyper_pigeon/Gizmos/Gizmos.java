@@ -1,7 +1,6 @@
 package net.hyper_pigeon.Gizmos;
 
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.hyper_pigeon.Gizmos.config.GizmosConfig;
@@ -25,7 +24,7 @@ public class Gizmos implements ModInitializer {
 		GizmoEntities.init();
 		GizmoBlocks.init();
 		FabricModelPredicateProviderRegistry.register(GizmoItems.SOUL_FIRE_SPITTER, new Identifier("tank_amount"),
-				(itemStack, clientWorld, livingEntity) -> {
+				(itemStack, clientWorld, livingEntity, i) -> {
 					if(itemStack.getDamage() >= itemStack.getMaxDamage()) {
 						//System.out.println("check0");
 						return 0.0F;
@@ -49,7 +48,7 @@ public class Gizmos implements ModInitializer {
 				});
 
 		FabricModelPredicateProviderRegistry.register(GizmoItems.SLINGSHOT, new Identifier("slingshot_pull"),
-				(itemStack, clientWorld, livingEntity) -> {
+				(itemStack, clientWorld, livingEntity, i) -> {
 					if (livingEntity == null) {
 						return 0.0F;
 					}
@@ -59,7 +58,7 @@ public class Gizmos implements ModInitializer {
 				});
 
 		FabricModelPredicateProviderRegistry.register(GizmoItems.SLINGSHOT, new Identifier("slingshot_pulling"),
-				(itemStack, clientWorld, livingEntity) -> {
+				(itemStack, clientWorld, livingEntity, i) -> {
 					return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
 				});
 

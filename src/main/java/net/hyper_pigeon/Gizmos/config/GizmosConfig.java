@@ -1,7 +1,7 @@
 package net.hyper_pigeon.Gizmos.config;
 
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.annotation.Config;
 
 @Config(name = "gizmos")
 public class GizmosConfig implements ConfigData {

@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.function.Predicate;
 
 public class SoulFireSpitter extends ToolItem {
@@ -46,6 +47,8 @@ public class SoulFireSpitter extends ToolItem {
     public boolean isDamageable(){
         return true;
     }
+
+
 
 
 //    public void createFlames(Entity user, float pitch, float yaw, float roll, float modifierZ, float modifierXYZ){
@@ -74,8 +77,8 @@ public class SoulFireSpitter extends ToolItem {
         ItemStack itemStack = playerEntity.getStackInHand(hand);
         Vec3d rotationVec = playerEntity.getRotationVec(1F);
         Vec3d camera = playerEntity.getCameraPosVec(1F);
-        double rotationVec_magnitude = MathHelper.sqrt((rotationVec.x* rotationVec.x)+
-                (rotationVec.z*rotationVec.z));
+        double rotationVec_magnitude = MathHelper.sqrt((float) ((rotationVec.x* rotationVec.x)+
+                        (rotationVec.z*rotationVec.z)));
         float angle = (float) Math.atan2(rotationVec.z,rotationVec.x);
         double z_increase = 3*rotationVec_magnitude*(MathHelper.sin(angle));
         double x_increase = 3*rotationVec_magnitude*(MathHelper.cos(angle));
@@ -92,14 +95,15 @@ public class SoulFireSpitter extends ToolItem {
 
 
 
-        float f = -MathHelper.sin(playerEntity.yaw * 0.017453292F) * MathHelper.cos(playerEntity.pitch * 0.017453292F);
-        float g = -MathHelper.sin((playerEntity.pitch + playerEntity.getRoll()) * 0.017453292F);
-        float h = MathHelper.cos(playerEntity.yaw * 0.017453292F) * MathHelper.cos(playerEntity.pitch* 0.017453292F);
+        float f = -MathHelper.sin(playerEntity.getYaw() * 0.017453292F) * MathHelper.cos(playerEntity.getPitch() * 0.017453292F);
+        float g = -MathHelper.sin((playerEntity.getPitch() + playerEntity.getRoll()) * 0.017453292F);
+        float h = MathHelper.cos(playerEntity.getYaw() * 0.017453292F) * MathHelper.cos(playerEntity.getYaw()* 0.017453292F);
 
         if(itemStack.getDamage() < itemStack.getMaxDamage()) {
 
             //int particle_stream_length = 5;
-            world.playSound(playerEntity, playerEntity.getBlockPos(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+            Random random = new Random();
+            world.playSound(playerEntity, playerEntity.getBlockPos(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.4F + 0.8F);
 
             for (double x = flameBox.minX; x <= flameBox.maxX; x += 0.5){
                 for (double y = flameBox.minY; y <= flameBox.maxY; y += 0.5){
@@ -143,24 +147,24 @@ public class SoulFireSpitter extends ToolItem {
 //                .addParticle(new SoulFireSpitterParticle(MinecraftClient.getInstance().world, camera.x, camera.y, camera.z, 0.1*f,g,
 //                        0.1*h));
 
-            int scorching_level = EnchantmentHelper.getLevel(GizmoEnchantments.SCORCHING,itemStack);
-            int afterburn_level = EnchantmentHelper.getLevel(GizmoEnchantments.AFTERBURN,itemStack);
-            int soulburn_level = EnchantmentHelper.getLevel(GizmoEnchantments.SOULBURN, itemStack);
-
-            int damage = 5 + (scorching_level*2);
-            int afterburn_time = 5 + (afterburn_level*2);
-            int soulburn_damange = 1*(soulburn_level);
+//            int scorching_level = EnchantmentHelper.getLevel(GizmoEnchantments.SCORCHING,itemStack);
+//            int afterburn_level = EnchantmentHelper.getLevel(GizmoEnchantments.AFTERBURN,itemStack);
+//            int soulburn_level = EnchantmentHelper.getLevel(GizmoEnchantments.SOULBURN, itemStack);
+//
+//            int damage = 5 + (scorching_level*2);
+//            int afterburn_time = 5 + (afterburn_level*2);
+//            int soulburn_damange = 1*(soulburn_level);
 
 
             for (LivingEntity livingEntity : list) {
                 if (!livingEntity.equals(playerEntity)) {
                     livingEntity.setAttacker(playerEntity);
-                    livingEntity.setOnFireFor(afterburn_time);
-                    livingEntity.damage(DamageSource.IN_FIRE,damage);
+                    livingEntity.setOnFireFor(5);
+                    livingEntity.damage(DamageSource.IN_FIRE,5);
 
-                    if(livingEntity.isFireImmune()){
-                        livingEntity.damage(DamageSource.MAGIC, soulburn_damange);
-                    }
+//                    if(livingEntity.isFireImmune()){
+//                        livingEntity.damage(DamageSource.MAGIC, soulburn_damange);
+//                    }
 
                 }
 
@@ -179,12 +183,12 @@ public class SoulFireSpitter extends ToolItem {
                     BlockPos blockPos = (BlockPos) iterator.next();
                     BlockState blockState = world.getBlockState(blockPos);
 
-                    if (CampfireBlock.method_30035(blockState)) {
+                    if (CampfireBlock.canBeLit(blockState)) {
                         //world.playSound(playerEntity, blockPos, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
                         world.setBlockState(blockPos, blockState.with(Properties.LIT, true), 11);
                     } else {
                         BlockPos blockPos2 = blockPos.offset(playerEntity.getMovementDirection());
-                        if (AbstractFireBlock.method_30032(world, blockPos2, playerEntity.getMovementDirection())) {
+                        if (AbstractFireBlock.canPlaceAt(world, blockPos2, playerEntity.getMovementDirection())) {
                             //world.playSound(playerEntity, blockPos2, SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
                             BlockState blockState2 = AbstractFireBlock.getState(world, blockPos2);
                             world.setBlockState(blockPos2, blockState2, 11);

@@ -49,50 +49,50 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
             for(l = 0; l < 4; ++l){
                 if((l + m * 4) == 0){
                     this.addSlot(new Slot(this.input, 0,  14 + l * 18, 5 + m * 18){
-                            public boolean canInsert(ItemStack stack) {
-                                return stack.getItem().equals(Items.GUNPOWDER);
-                            }
-                        });
+                        public boolean canInsert(ItemStack stack) {
+                            return stack.getItem().equals(Items.GUNPOWDER);
+                        }
+                    });
                 }
                 else if((l + m * 4) == 4){
                     this.addSlot(new Slot(this.input, 4, 14 + l * 18, 5 + m * 18){
-                            public boolean canInsert(ItemStack stack) {
-                                return (stack.getItem().equals(Items.FIRE_CHARGE))||
-                                        (stack.getItem().equals(Items.GOLD_NUGGET))||
-                                        (stack.getItem().equals(Items.FEATHER))||
-                                        (stack.getItem().equals(Items.WITHER_SKELETON_SKULL))||
-                                        (stack.getItem().equals(Items.PLAYER_HEAD))||
-                                        (stack.getItem().equals(Items.SKELETON_SKULL))||
-                                        (stack.getItem().equals(Items.CREEPER_HEAD))||
-                                        (stack.getItem().equals(Items.ZOMBIE_HEAD));
-                            }
-                        });
+                        public boolean canInsert(ItemStack stack) {
+                            return (stack.getItem().equals(Items.FIRE_CHARGE))||
+                                    (stack.getItem().equals(Items.GOLD_NUGGET))||
+                                    (stack.getItem().equals(Items.FEATHER))||
+                                    (stack.getItem().equals(Items.WITHER_SKELETON_SKULL))||
+                                    (stack.getItem().equals(Items.PLAYER_HEAD))||
+                                    (stack.getItem().equals(Items.SKELETON_SKULL))||
+                                    (stack.getItem().equals(Items.CREEPER_HEAD))||
+                                    (stack.getItem().equals(Items.ZOMBIE_HEAD));
+                        }
+                    });
                 }
                 else if((l + m * 4) == 8){
                     this.addSlot(new Slot(this.input, 8, 14 + l * 18, 5 + m * 18){
-                            public boolean canInsert(ItemStack stack) {
-                                return stack.getItem().equals(Items.DIAMOND);
-                            }
-                        });
+                        public boolean canInsert(ItemStack stack) {
+                            return stack.getItem().equals(Items.DIAMOND);
+                        }
+                    });
                 }
                 else if((l + m * 4) == 12){
                     this.addSlot(new Slot(this.input, 12,14 + l * 18, 5 + m * 18){
-                            public boolean canInsert(ItemStack stack) {
-                                return stack.getItem().equals(Items.GLOWSTONE_DUST);
-                            }
-                        });
+                        public boolean canInsert(ItemStack stack) {
+                            return stack.getItem().equals(Items.GLOWSTONE_DUST);
+                        }
+                    });
                 }
                 else {
                     this.addSlot(new Slot(this.input, l + m * 4,  21 + l * 18, 5 + m * 18) {
                         public boolean canInsert(ItemStack stack) {
                             return stack.getItem() instanceof DyeItem;
                         }
-                     });
+                    });
                 }
             }
         }
 
-    
+
         for(m = 0; m < 3; ++m) {
             for(l = 0; l < 9; ++l) {
                 this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 102 + m * 18));
@@ -130,7 +130,9 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
         });
     }
 
-    public void populateRecipeFinder(RecipeFinder finder) {
+
+    @Override
+    public void populateRecipeFinder(RecipeMatcher finder) {
         this.input.provideRecipeInputs(finder);
     }
 
@@ -146,7 +148,7 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
     public void close(PlayerEntity player) {
         super.close(player);
         this.context.run((world, blockPos) -> {
-            this.dropInventory(player, world, this.input);
+            this.dropInventory(player, player.getInventory());
         });
     }
 
@@ -168,7 +170,7 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
                     return ItemStack.EMPTY;
                 }
 
-                slot.onStackChanged(itemStack2, itemStack);
+                slot.onQuickTransfer(itemStack2, itemStack);
             } else if (index >= 17 && index < 53) {
                 if (!this.insertItem(itemStack2, 1, 17, false)) {
                     if (index < 44) {
@@ -193,9 +195,10 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
                 return ItemStack.EMPTY;
             }
 
-            ItemStack itemStack3 = slot.onTakeItem(player, itemStack2);
+            //ItemStack itemStack3 = slot.onTakeItem(player, itemStack2);
+            slot.onTakeItem(player, itemStack2);
             if (index == 0) {
-                player.dropItem(itemStack3, false);
+                player.dropItem(itemStack2, false);
             }
         }
 
@@ -227,5 +230,10 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
     @Environment(EnvType.CLIENT)
     public RecipeBookCategory getCategory() {
         return RecipeBookCategory.CRAFTING;
+    }
+
+    @Override
+    public boolean canInsertIntoSlot(int index) {
+        return true;
     }
 }
