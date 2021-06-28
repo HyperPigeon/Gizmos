@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "gizmos",
-  "version": "1.2.1",
+  "version": "1.4.0",
   
   "name": "Gizmos",
   "description": "A mod that adds a bunch of wacky items and mechanics to Minecraft.",
@@ -27,11 +27,14 @@
   },
   
   "depends": {
-    "fabricloader": ">=0.4.0",
-    "fabric": ">=0.29"
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
   },
 
   "recommends": {
+    "recipeconditions": "*",
     "modmenu": "*"
   },
   

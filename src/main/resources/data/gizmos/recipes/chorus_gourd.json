@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CPC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:chorus_flower"
+    },
+    "P": {
+      "item": "minecraft:pumpkin"
+    }
+  },
+  "result": {
+    "item": "gizmos:chorus_gourd",
+    "count": 1
+  },
+  "frc:conditions": [
+    { "recipeconditions:item_registered": "gizmos:chorus_gourd" }
+  ]
+}
