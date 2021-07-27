@@ -1,13 +1,12 @@
 package net.hyper_pigeon.Gizmos.entities;
 
+import net.hyper_pigeon.Gizmos.registry.GizmoEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,14 +16,10 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 
 import java.util.EnumSet;
-import java.util.UUID;
 
 public class CultivatedShulkerEntity extends ShulkerEntity implements TamedMonster{
-    private static final UUID COVERED_ARMOR_BONUS_ID = UUID.fromString("7E0292F2-9434-48D5-A29F-9583AF7DF27F");
-    private static final EntityAttributeModifier COVERED_ARMOR_BONUS;
 
     public CultivatedShulkerEntity(EntityType<? extends ShulkerEntity> entityType, World world) {
         super(entityType, world);
@@ -36,22 +31,6 @@ public class CultivatedShulkerEntity extends ShulkerEntity implements TamedMonst
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(5, new LookAroundGoal(this));
         this.targetSelector.add(3, new CultivatedShulkerEntity.SearchForTargetGoal(this));
-    }
-
-    void setPeekAmount(int peekAmount) {
-        if (!this.world.isClient) {
-            this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).removeModifier(COVERED_ARMOR_BONUS);
-            if (peekAmount == 0) {
-                this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).addPersistentModifier(COVERED_ARMOR_BONUS);
-                this.playSound(SoundEvents.ENTITY_SHULKER_CLOSE, 1.0F, 1.0F);
-                this.emitGameEvent(GameEvent.SHULKER_CLOSE);
-            } else {
-                this.playSound(SoundEvents.ENTITY_SHULKER_OPEN, 1.0F, 1.0F);
-                this.emitGameEvent(GameEvent.SHULKER_OPEN);
-            }
-        }
-
-        this.dataTracker.set(PEEK_AMOUNT, (byte)peekAmount);
     }
 
 
@@ -153,9 +132,5 @@ public class CultivatedShulkerEntity extends ShulkerEntity implements TamedMonst
                 return direction.getAxis() == Direction.Axis.Z ? this.mob.getBoundingBox().expand(distance, distance, 4.0D) : this.mob.getBoundingBox().expand(distance, 4.0D, distance);
             }
         }
-    }
-
-    static {
-        COVERED_ARMOR_BONUS = new EntityAttributeModifier(COVERED_ARMOR_BONUS_ID, "Covered armor bonus", 20.0D, EntityAttributeModifier.Operation.ADDITION);
     }
 }

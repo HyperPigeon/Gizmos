@@ -33,11 +33,11 @@ public class DamageSnowballEntity extends SnowballEntity {
         if(entity instanceof LivingEntity){
             if(isAmplified){
                 StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1,1);
-                ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
+                ((LivingEntity) entity).applyStatusEffect(statusEffectInstance);
             }
             else {
                 StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1,0);
-                ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
+                ((LivingEntity) entity).applyStatusEffect(statusEffectInstance);
             }
         }
     }

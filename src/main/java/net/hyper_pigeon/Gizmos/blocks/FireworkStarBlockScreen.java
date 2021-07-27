@@ -2,10 +2,8 @@ package net.hyper_pigeon.Gizmos.blocks;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookProvider;
 import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
@@ -14,7 +12,7 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class FireworkStarBlockScreen extends HandledScreen<FireworkStarBlockCraftingScreenHandler> implements RecipeBookProvider {
+public class FireworkStarBlockScreen extends HandledScreen<FireworkStarBlockCraftingScreenHandler> {
     private static final Identifier TEXTURE = new Identifier("gizmos","textures/gui/container/firework_star_block_gui_main.png");
     private static final Identifier RECIPE_BUTTON_TEXTURE = new Identifier("textures/gui/recipe_button.png");
     private final RecipeBookWidget recipeBook = new RecipeBookWidget();
@@ -30,18 +28,10 @@ public class FireworkStarBlockScreen extends HandledScreen<FireworkStarBlockCraf
         this.backgroundWidth = 200;
         this.backgroundHeight = 200;
         this.narrow = this.width < 379;
-//        this.recipeBook.initialize(this.width, this.height, this.client, this.narrow, (AbstractRecipeScreenHandler)this.handler);
-//        this.x = this.recipeBook.findLeftEdge(this.width, this.backgroundWidth);
-//        this.addDrawableChild(new TexturedButtonWidget(this.x + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (button) -> {
-//            this.recipeBook.toggleOpen();
-//            this.x = this.recipeBook.findLeftEdge(this.width, this.backgroundWidth);
-//            ((TexturedButtonWidget)button).setPos(this.x + 5, this.height / 2 - 49);
-//        }));
-//        this.addSelectableChild(this.recipeBook);
-//        this.setInitialFocus(this.recipeBook);
-
-//        this.addSelectableChild(this.recipeBook);
-//        this.setInitialFocus(this.recipeBook);
+        this.recipeBook.initialize(this.width, this.height, this.client, this.narrow, (AbstractRecipeScreenHandler)this.handler);
+        this.x = this.recipeBook.findLeftEdge(this.narrow, this.width, this.backgroundWidth);
+        this.children.add(this.recipeBook);
+        this.setInitialFocus(this.recipeBook);
 //        this.addButton(new TexturedButtonWidget(this.x + 5, this.height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (buttonWidget) -> {
 //            this.recipeBook.reset(this.narrow);
 //            this.recipeBook.toggleOpen();
@@ -57,7 +47,7 @@ public class FireworkStarBlockScreen extends HandledScreen<FireworkStarBlockCraf
 
     public void tick() {
         super.tick();
-        //this.recipeBook.update();
+        this.recipeBook.update();
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -76,9 +66,8 @@ public class FireworkStarBlockScreen extends HandledScreen<FireworkStarBlockCraf
     }
 
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        this.client.getTextureManager().bindTexture(TEXTURE);
         int i = this.x;
         int j = (this.height - this.backgroundHeight) / 2;
         this.drawTexture(matrices, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
@@ -104,7 +93,7 @@ public class FireworkStarBlockScreen extends HandledScreen<FireworkStarBlockCraf
 
     protected void onMouseClick(Slot slot, int invSlot, int clickData, SlotActionType actionType) {
         super.onMouseClick(slot, invSlot, clickData, actionType);
-        //this.recipeBook.slotClicked(slot);
+        this.recipeBook.slotClicked(slot);
     }
 
     public void refreshRecipeBook() {
@@ -112,7 +101,7 @@ public class FireworkStarBlockScreen extends HandledScreen<FireworkStarBlockCraf
     }
 
     public void removed() {
-        //this.recipeBook.close();
+        this.recipeBook.close();
         super.removed();
     }
 

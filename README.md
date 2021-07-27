@@ -9,8 +9,6 @@
 - [Cultivated Shulker](#cultivated-shulker)
 - [Rideable Ravager](#rideable-ravager)
 - [Horseshoes](#horseshoes)
-- [Status Infused Snow Golems](#Status-Infused-Snow-Golems)
-- [Seeker Arrows](#Seeker-Arrows)
 
 
 
@@ -51,9 +49,7 @@
 
 ![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/page12_with_images.png)    
 
-# Rideable Ravagers
-
-[![](http://img.youtube.com/vi/pWXXgl4CYy0/0.jpg)](http://www.youtube.com/watch?v=pWXXgl4CYy0 "")
+# Rideable Ravager
 
 ![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/page13.png)    
 
@@ -68,35 +64,5 @@
 
 
 ![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/page17.png)    
-
-
-# Status Infused Snow Golems
-
-![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/snow_golems_page_1.png)
-
-
-![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/snow_golems_page_2.png)
-
-
-![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/snow_golems_page_3.png)
-
-
-![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/snow_golems_page_4.png)
-
-
-# Seeker Arrows
-
-![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/seeker_arrow_page_1_with_pictures.png)
-
-
-![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/seeker_arrow_page_2_with_pics.png)
-
-
-![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/seeker_arrow_page_3.png)
-
-
-![](https://raw.githubusercontent.com/HyperPigeon/Gizmos/main/Gizmos%20Images/seeker_arrow_page_4_with_pictures.png)
-
- 
 
 

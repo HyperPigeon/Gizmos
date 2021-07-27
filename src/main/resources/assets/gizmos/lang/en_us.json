@@ -37,13 +37,5 @@
 
   "text.autoconfig.gizmos.option.seeker_arrows": "Enable seeker arrows",
 
-  "text.autoconfig.gizmos.option.ravagerTamingHealthProportion": "Health % for Taming Ravagers",
-
-  "text.autoconfig.gizmos.option.igniteBlocks": "Allow the Soul Fire Spitter to set blocks on fire",
-
-  "enchantment.gizmos.scorching": "Scorching",
-
-  "enchantment.gizmos.afterburn": "Afterburn",
-
-  "enchantment.gizmos.soulburn": "Soulburn"
+  "text.autoconfig.gizmos.option.ravagerTamingHealthProportion": "Health % for Taming Ravagers"
 }

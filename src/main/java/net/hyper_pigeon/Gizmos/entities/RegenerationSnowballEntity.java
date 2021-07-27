@@ -31,11 +31,11 @@ public class RegenerationSnowballEntity extends SnowballEntity {
         if(entity instanceof LivingEntity){
             if(isAmplified){
                 StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.REGENERATION, 10,1);
-                ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
+                ((LivingEntity) entity).applyStatusEffect(statusEffectInstance);
             }
             else {
                 StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.REGENERATION, 5,0);
-                ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
+                ((LivingEntity) entity).applyStatusEffect(statusEffectInstance);
             }
         }
     }

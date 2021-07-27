@@ -17,6 +17,13 @@ public abstract class BipedEntityModelMixin {
 
     @Shadow
     public ModelPart head;
+
+    @Shadow
+    public ModelPart helmet;
+
+    @Shadow
+    public ModelPart torso;
+
     @Shadow
     public ModelPart rightArm;
 
@@ -31,7 +38,7 @@ public abstract class BipedEntityModelMixin {
 
 
     /*Changes player model so SoulFireSpitter and other Gizmos are held in a certain way*/
-    @Inject(at = @At("HEAD"), method = "positionLeftArm")
+    @Inject(at = @At("HEAD"), method = "method_30155")
     private void GizmoPoses(LivingEntity livingEntity, CallbackInfo callbackInfo) {
 
         ItemStack mainhandStack = livingEntity.getMainHandStack();

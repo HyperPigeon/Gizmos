@@ -1,7 +1,6 @@
 package net.hyper_pigeon.Gizmos.blocks;
 
 import net.hyper_pigeon.Gizmos.registry.GizmoBlocks;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,13 +9,12 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.math.BlockPos;
 
 public class FireworkStarBlockEntity extends BlockEntity implements NamedScreenHandlerFactory{
 
 
-    public FireworkStarBlockEntity(BlockPos pos, BlockState state) {
-        super(GizmoBlocks.FIREWORK_STAR_BLOCK_ENTITY, pos, state);
+    public FireworkStarBlockEntity() {
+        super(GizmoBlocks.FIREWORK_STAR_BLOCK_ENTITY);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package net.hyper_pigeon.Gizmos.blocks;
 
-import net.hyper_pigeon.Gizmos.registry.GizmoBlocks;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -16,7 +15,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 public class FireworkStarBlock extends BlockWithEntity {
 
@@ -48,13 +46,13 @@ public class FireworkStarBlock extends BlockWithEntity {
 
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        //With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
-        return BlockRenderType.MODEL;
+    public BlockEntity createBlockEntity(BlockView world) {
+        return new FireworkStarBlockEntity();
     }
 
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new FireworkStarBlockEntity(pos,state);
+    public BlockRenderType getRenderType(BlockState state) {
+        //With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
+        return BlockRenderType.MODEL;
     }
 }

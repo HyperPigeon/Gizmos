@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "net.hyper_pigeon.Gizmos.mixin.MixinConditions",
   "mixins": [
-    "BipedEntityModelMixin",
     "EndermanEntityMixin",
     "HorseBaseEntityMixin",
     "HorseEntityMixin",
@@ -13,9 +12,11 @@
     "RavagerEntityMixin",
     "SkeletonHorseEntityMixin",
     "SnowGolemEntityMixin",
+    "StatusEffectInstanceAccessor",
     "ZombieHorseEntityMixin"
   ],
   "client": [
+    "BipedEntityModelMixin",
     "ClientPlayNetworkHandlerMixin"
   ],
   "server": [

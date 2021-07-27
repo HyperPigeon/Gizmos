@@ -16,7 +16,7 @@ import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.PotionItem;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -35,6 +35,8 @@ import java.util.List;
 @Mixin(SnowGolemEntity.class)
 public abstract class SnowGolemEntityMixin extends GolemEntity implements Shearable, RangedAttackMob {
 
+    private static final int permanentDuration = 32767; // from EntityStatusEffectS2CPacket#isPermanent()
+    
     private StatusEffectInstance statusEffectInstance_one;
 
 
@@ -71,42 +73,48 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
 
             if(statusEffectInstance_one != null) {
                 if (statusEffectInstance_one.getEffectType().equals(StatusEffects.FIRE_RESISTANCE)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.INVISIBILITY)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.WATER_BREATHING)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.SPEED)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.REGENERATION)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.SLOW_FALLING)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.RESISTANCE)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.STRENGTH)) {
-                    statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    makePermanent();
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
             }
 
             player.getMainHandStack().decrement(1);
             player.giveItemStack(new ItemStack(Items.GLASS_BOTTLE));
         }
+    }
+
+    private void makePermanent() {
+        ((StatusEffectInstanceAccessor)statusEffectInstance_one).setDuration(permanentDuration);
+        if (this.world.isClient)
+            statusEffectInstance_one.setPermanent(true);
     }
 
     @Inject(at = @At("RETURN"), method = "hurtByWater", cancellable = true)
@@ -122,16 +130,16 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
         return statusEffectInstance_one;
     }
 
-    @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt")
-    public void writeStatusEffectInstanceToTag(NbtCompound tag, CallbackInfo callbackInfo){
+    @Inject(at = @At("TAIL"), method = "writeCustomDataToTag")
+    public void writeStatusEffectInstanceToTag(CompoundTag tag, CallbackInfo callbackInfo){
         if(statusEffectInstance_one != null){
-            statusEffectInstance_one.writeNbt(tag);
+            statusEffectInstance_one.toTag(tag);
         }
     }
 
-    @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt")
-    public void readStatusEffectInstanceFromTag(NbtCompound tag, CallbackInfo callbackInfo){
-        statusEffectInstance_one = StatusEffectInstance.fromNbt(tag);
+    @Inject(at = @At("TAIL"), method = "readCustomDataFromTag")
+    public void readStatusEffectInstanceFromTag(CompoundTag tag, CallbackInfo callbackInfo){
+        statusEffectInstance_one = StatusEffectInstance.fromTag(tag);
     }
 
     @Inject(at = @At("HEAD"), method = "attack", cancellable = true)
@@ -147,7 +155,7 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double e = target.getX() - this.getX();
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                float h = MathHelper.sqrt(e * e + g * g) * 0.2F;
                 snowballEntity.setVelocity(e, f + (double) h, g, 1.6F, 12.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
@@ -161,7 +169,7 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double e = target.getX() - this.getX();
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                float h = MathHelper.sqrt(e * e + g * g) * 0.2F;
                 snowballEntity.setVelocity(e, f + (double) h, g, 1.6F, 12.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
@@ -175,7 +183,7 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double e = target.getX() - this.getX();
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                float h = MathHelper.sqrt(e * e + g * g) * 0.2F;
                 snowballEntity.setVelocity(e, f + (double) h, g, 1.6F, 12.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
@@ -189,7 +197,7 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double e = target.getX() - this.getX();
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                float h = MathHelper.sqrt(e * e + g * g) * 0.2F;
                 snowballEntity.setVelocity(e, f + (double) h, g, 1.6F, 12.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
@@ -204,7 +212,7 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double e = target.getX() - this.getX();
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                float h = MathHelper.sqrt(e * e + g * g) * 0.2F;
                 snowballEntity.setVelocity(e, f + (double) h, g, 1.6F, 12.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
@@ -219,7 +227,7 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double e = target.getX() - this.getX();
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                float h = MathHelper.sqrt(e * e + g * g) * 0.2F;
                 snowballEntity.setVelocity(e, f + (double) h, g, 1.6F, 12.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
@@ -231,7 +239,7 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double e = target.getX() - this.getX();
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                float h = MathHelper.sqrt(e * e + g * g) * 0.2F;
                 snowballEntity.setVelocity(e, f + (double)h, g, 1.6F, 1.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
@@ -242,7 +250,7 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double e = target.getX() - this.getX();
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
-                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                float h = MathHelper.sqrt(e * e + g * g) * 0.2F;
                 snowballEntity.setVelocity(e, f + (double)h, g, 3.2F, 1.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
