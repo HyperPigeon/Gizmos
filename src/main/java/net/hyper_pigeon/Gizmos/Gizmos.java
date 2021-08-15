@@ -26,23 +26,23 @@ public class Gizmos implements ModInitializer {
 		FabricModelPredicateProviderRegistry.register(GizmoItems.SOUL_FIRE_SPITTER, new Identifier("tank_amount"),
 				(itemStack, clientWorld, livingEntity, i) -> {
 					if(itemStack.getDamage() >= itemStack.getMaxDamage()) {
-						//System.out.println("check0");
+						System.out.println("check0");
 						return 0.0F;
 					}
-					else if (itemStack.getDamage() >= 3*itemStack.getMaxDamage()/4){
-						//System.out.println("check1");
+					else if (itemStack.getDamage() >= 3*(itemStack.getMaxDamage()/4)){
+						System.out.println("check1");
 						return 1.0F;
 					}
 					else if (itemStack.getDamage() >= itemStack.getMaxDamage()/2){
-						//System.out.println("check2");
+						System.out.println("check2");
 						return 2.0F;
 					}
 					else if (itemStack.getDamage() >= itemStack.getMaxDamage()/4){
-						//System.out.println("check3");
+						System.out.println("check3");
 						return 3.0F;
 					}
 					else {
-						//System.out.println("check4");
+						System.out.println("check4");
 						return 4.0F;
 					}
 				});

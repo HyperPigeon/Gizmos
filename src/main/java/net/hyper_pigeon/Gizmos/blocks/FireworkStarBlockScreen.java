@@ -55,10 +55,10 @@ public class FireworkStarBlockScreen extends HandledScreen<FireworkStarBlockCraf
         this.playerInventoryTitleY = this.backgroundHeight - 115;
     }
 
-    public void tick() {
-        super.tick();
-        //this.recipeBook.update();
-    }
+//    public void tick() {
+//        super.tick();
+//        //this.recipeBook.update();
+//    }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);

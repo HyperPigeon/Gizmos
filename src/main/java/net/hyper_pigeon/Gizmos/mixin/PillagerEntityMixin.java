@@ -59,7 +59,7 @@ public abstract class PillagerEntityMixin extends IllagerEntity implements Cross
             ItemStack fireworkStack = new ItemStack(Items.FIREWORK_ROCKET);
             fireworkStack.setCount(64);
             try {
-                fireworkStack.putSubTag("Fireworks", StringNbtReader.parse("{Explosions:[{Type:1b,Flicker:1,Colors:[I;3887386,14602026],FadeColors:[I;5320730]}],Flight:3b}"));
+                fireworkStack.setSubNbt("Fireworks", StringNbtReader.parse("{Explosions:[{Type:1b,Flicker:1,Colors:[I;3887386,14602026],FadeColors:[I;5320730]}],Flight:3b}"));
             } catch (CommandSyntaxException e) {
                 e.printStackTrace();
             }

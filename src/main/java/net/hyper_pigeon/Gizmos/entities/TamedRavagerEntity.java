@@ -78,7 +78,7 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
     public void tickMovement(){
         super.tickMovement();
 
-//        if(this.getPrimaryPassenger() != null && this.getPrimaryPassenger() instanceof PlayerEntity){
+//        if (this.getPrimaryPassenger() != null && this.getPrimaryPassenger() instanceof PlayerEntity) {
 //            PlayerEntity playerEntity = (PlayerEntity) this.getPrimaryPassenger();
 //            if(playerEntity.getAttacking() != null){
 //                super.setTarget(playerEntity.getAttacking());

@@ -120,7 +120,7 @@ public class FireworkStarBlockCraftingScreenHandler extends AbstractRecipeScreen
             }
 
             resultInventory.setStack(0, itemStack);
-            serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(syncId, 0, itemStack));
+            serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(syncId, 0, 0, itemStack));
         }
     }
 
