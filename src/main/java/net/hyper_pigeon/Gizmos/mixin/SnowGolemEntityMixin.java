@@ -102,6 +102,10 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                     statusEffectInstance_one.setPermanent(true);
                     this.setStatusEffect(statusEffectInstance_one, player);
                 }
+                else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.WEAKNESS)) {
+                    statusEffectInstance_one.setPermanent(true);
+                    this.setStatusEffect(statusEffectInstance_one, player);
+                }
             }
 
             player.getMainHandStack().decrement(1);
