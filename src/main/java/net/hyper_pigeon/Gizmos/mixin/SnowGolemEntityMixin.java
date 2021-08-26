@@ -243,9 +243,24 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 double f = d - snowballEntity.getY();
                 double g = target.getZ() - this.getZ();
                 float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
-                snowballEntity.setVelocity(e, f + (double)h, g, 3.2F, 1.0F);
+                snowballEntity.setVelocity(e, f + (double)h, g, 3.2F, 12.0F);
                 this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                 this.world.spawnEntity(snowballEntity);
+            }
+            else if (statusEffectInstance_one.getEffectType() == StatusEffects.WEAKNESS){
+                WeaknessSnowballEntity snowballEntity = new WeaknessSnowballEntity(this.world, this);
+                if (statusEffectInstance_one.getAmplifier() > 0) {
+                    snowballEntity.setIsAmplified(true);
+                }
+                double d = target.getEyeY() - 1.100000023841858D;
+                double e = target.getX() - this.getX();
+                double f = d - snowballEntity.getY();
+                double g = target.getZ() - this.getZ();
+                float h = MathHelper.sqrt((float) (e * e + g * g)) * 0.2F;
+                snowballEntity.setVelocity(e, f + (double) h, g, 1.6F, 12.0F);
+                this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+                this.world.spawnEntity(snowballEntity);
+                callbackInfo.cancel();
             }
         }
 
