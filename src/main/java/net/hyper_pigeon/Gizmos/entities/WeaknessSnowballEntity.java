@@ -25,11 +25,11 @@ public class WeaknessSnowballEntity extends SnowballEntity {
 
         if(entity instanceof LivingEntity){
             if(isAmplified){
-                StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.WEAKNESS, 15,1);
+                StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.WEAKNESS, 120,1);
                 ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
             }
             else {
-                StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.WEAKNESS, 10,0);
+                StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.WEAKNESS, 60,0);
                 ((LivingEntity) entity).setStatusEffect(statusEffectInstance, this.getOwner());
             }
         }
