@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Shearable;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.Monster;
@@ -63,6 +64,10 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                         //do nothing
                     }
                     else {
+                       if(!player.isCreative()) {
+                           player.getMainHandStack().decrement(1);
+                           player.giveItemStack(new ItemStack(Items.GLASS_BOTTLE));
+                       }
                         statusEffectInstance_one = statusEffectInstance;
                     }
 
@@ -84,19 +89,19 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.SPEED)) {
                     statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.REGENERATION)) {
                     statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.SLOW_FALLING)) {
                     statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.RESISTANCE)) {
                     statusEffectInstance_one.setPermanent(true);
-                    this.setStatusEffect(statusEffectInstance_one, player);
+                    this.addStatusEffect(statusEffectInstance_one);
                 }
                 else if (statusEffectInstance_one.getEffectType().equals(StatusEffects.STRENGTH)) {
                     statusEffectInstance_one.setPermanent(true);
@@ -108,8 +113,6 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
                 }
             }
 
-            player.getMainHandStack().decrement(1);
-            player.giveItemStack(new ItemStack(Items.GLASS_BOTTLE));
         }
     }
 
@@ -269,6 +272,16 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
         }
 
     }
+
+    @Override
+    public void tick(){
+        if(getStatusEffectInstance_one() != null && getStatusEffectInstance_one().getDuration() < 10){
+            statusEffectInstance_one = new StatusEffectInstance(getStatusEffectInstance_one().getEffectType(), 10000, getStatusEffectInstance_one().getAmplifier());
+            this.addStatusEffect(statusEffectInstance_one);
+        }
+        super.tick();
+    }
+
 
 
 
