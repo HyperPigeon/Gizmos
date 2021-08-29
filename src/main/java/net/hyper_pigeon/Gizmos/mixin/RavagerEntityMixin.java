@@ -3,7 +3,13 @@ package net.hyper_pigeon.Gizmos.mixin;
 import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.entities.TamedRavagerEntity;
 import net.hyper_pigeon.Gizmos.registry.GizmoEntities;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.Material;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.RavagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.RaiderEntity;
@@ -14,6 +20,10 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,9 +31,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Iterator;
+
 @Mixin(RavagerEntity.class)
 public abstract class RavagerEntityMixin extends RaiderEntity {
 
+    @Shadow
+    private int roarTick;
+
+    @Shadow
+    private int stunTick;
+
+    @Shadow
+    private int attackTick;
+
+    @Shadow
+    private native void roar();
+
+    @Shadow
+    private native void spawnStunnedParticles();
 
     protected RavagerEntityMixin(EntityType<? extends RaiderEntity> entityType, World world) {
         super(entityType, world);
@@ -59,6 +85,75 @@ public abstract class RavagerEntityMixin extends RaiderEntity {
         }
         else {
             return super.interactMob(player,hand);
+        }
+    }
+
+    public boolean isBlockWood(Block block){
+        if(block.getDefaultState().getMaterial().equals(Material.WOOD)){
+            return true;
+        }
+        return false;
+    }
+
+    public void tickMovement() {
+        super.tickMovement();
+        if (this.isAlive()) {
+            if (this.isImmobile()) {
+                this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(0.0D);
+            } else {
+                double d = this.getTarget() != null ? 0.35D : 0.3D;
+                double e = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getBaseValue();
+                this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(MathHelper.lerp(0.1D, e, d));
+            }
+
+            if (this.horizontalCollision && this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+                boolean bl = false;
+                Box box = this.getBoundingBox().expand(0.2D);
+                Iterator var8 = BlockPos.iterate(MathHelper.floor(box.minX), MathHelper.floor(box.minY), MathHelper.floor(box.minZ), MathHelper.floor(box.maxX), MathHelper.floor(box.maxY), MathHelper.floor(box.maxZ)).iterator();
+
+                label60:
+                while(true) {
+                    BlockPos blockPos;
+                    Block block;
+                    do {
+                        if (!var8.hasNext()) {
+                            if (!bl && this.onGround) {
+                                this.jump();
+                            }
+                            break label60;
+                        }
+
+                        blockPos = (BlockPos)var8.next();
+                        BlockState blockState = this.world.getBlockState(blockPos);
+                        block = blockState.getBlock();
+                    } while(!(block instanceof LeavesBlock) && !(isBlockWood(block) &&
+                            this.hasStatusEffect(StatusEffects.STRENGTH)));
+
+                    bl = this.world.breakBlock(blockPos, true, this) || bl;
+
+                }
+            }
+
+            if (this.roarTick > 0) {
+                --this.roarTick;
+                if (this.roarTick == 10) {
+                    this.roar();
+                }
+            }
+
+            if (this.attackTick > 0) {
+                --this.attackTick;
+            }
+
+            if (this.stunTick > 0) {
+                --this.stunTick;
+                this.spawnStunnedParticles();
+                if (this.stunTick == 0) {
+                    this.playSound(SoundEvents.ENTITY_RAVAGER_ROAR, 1.0F, 1.0F);
+                    this.roarTick = 20;
+                }
+            }
+
         }
     }
 
