@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Shearable;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -30,6 +29,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,6 +38,17 @@ import java.util.List;
 public abstract class SnowGolemEntityMixin extends GolemEntity implements Shearable, RangedAttackMob {
 
     private StatusEffectInstance statusEffectInstance_one;
+
+    private static final ArrayList<StatusEffect> applicableStatusEffects = new ArrayList<>(Arrays.asList(
+            StatusEffects.FIRE_RESISTANCE,
+            StatusEffects.REGENERATION,
+            StatusEffects.INVISIBILITY,
+            StatusEffects.WATER_BREATHING,
+            StatusEffects.SPEED,
+            StatusEffects.REGENERATION,
+            StatusEffects.SLOW_FALLING,
+            StatusEffects.RESISTANCE,
+            StatusEffects.STRENGTH));
 
 
     protected SnowGolemEntityMixin(EntityType<? extends GolemEntity> entityType, World world) {
@@ -274,9 +286,9 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
     }
 
     @Override
-    public void tick(){
-        if(getStatusEffectInstance_one() != null && getStatusEffectInstance_one().getDuration() < 10){
-            statusEffectInstance_one = new StatusEffectInstance(getStatusEffectInstance_one().getEffectType(), 10000, getStatusEffectInstance_one().getAmplifier());
+    public void tick() {
+        if (getStatusEffectInstance_one() != null && getStatusEffectInstance_one().getDuration() < 20 && applicableStatusEffects.contains(getStatusEffectInstance_one().getEffectType())) {
+            statusEffectInstance_one = new StatusEffectInstance(getStatusEffectInstance_one().getEffectType(), 25743, getStatusEffectInstance_one().getAmplifier());
             this.addStatusEffect(statusEffectInstance_one);
         }
         super.tick();

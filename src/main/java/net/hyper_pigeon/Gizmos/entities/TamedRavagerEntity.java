@@ -35,7 +35,7 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(4, new TamedRavagerEntity.AttackGoal());
-        this.targetSelector.add(4, new FollowTargetGoal(this, LivingEntity.class, 10, true, false,
+        this.targetSelector.add(4, new ActiveTargetGoal(this, LivingEntity.class, 10, true, false,
                 livingEntity -> livingEntity == getTarget()));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.4D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
@@ -190,7 +190,7 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
                     g *= 0.25F;
                 }
 
-                this.flyingSpeed = this.getMovementSpeed() * 0.1F;
+                this.airStrafingSpeed = this.getMovementSpeed() * 0.1F;
                 if (this.isLogicalSideForUpdatingMovement()) {
                     this.setMovementSpeed((float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
                     super.travel(new Vec3d(f, movementInput.y, g));
@@ -200,7 +200,7 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
 
                 this.updateLimbs(this, false);
             } else {
-                this.flyingSpeed = 0.02F;
+                this.airStrafingSpeed = 0.02F;
                 super.travel(movementInput);
             }
         }
