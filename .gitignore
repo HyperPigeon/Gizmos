@@ -27,6 +27,5 @@ bin/
 # fabric
 
 run/
-run-server/
 logs/
 gradle/
