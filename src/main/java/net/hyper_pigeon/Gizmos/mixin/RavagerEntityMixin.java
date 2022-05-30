@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.RavagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.raid.RaiderEntity;
@@ -52,29 +53,31 @@ public abstract class RavagerEntityMixin extends RaiderEntity {
         super(entityType, world);
     }
 
-    public boolean isBlockWood(Block block){
-        if(block.getDefaultState().getMaterial().equals(Material.WOOD)){
-            return true;
-        }
-        return false;
-    }
-
-
-    @Inject(at =  @At("TAIL"), method = "tickMovement")
-    public void breakWoodBlock(CallbackInfo ci){
-        Box box = this.getBoundingBox().expand(0.5D);
-        Iterator blockPosIterator = BlockPos.iterate(MathHelper.floor(box.minX), MathHelper.floor(box.minY), MathHelper.floor(box.minZ), MathHelper.floor(box.maxX), MathHelper.floor(box.maxY), MathHelper.floor(box.maxZ)).iterator();
-
-        while(blockPosIterator.hasNext()){
-            BlockPos blockPos = (BlockPos) blockPosIterator.next();
-            BlockState blockState = this.world.getBlockState(blockPos);
-            Block block = blockState.getBlock();
-
-            if (isBlockWood(block)){
-                this.world.breakBlock(blockPos,true);
-            }
-        }
-    }
+//    public boolean isBlockWood(Block block){
+//        if(block.getDefaultState().getMaterial().equals(Material.WOOD)){
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//
+//    @Inject(at =  @At("TAIL"), method = "tickMovement")
+//    public void breakWoodBlock(CallbackInfo ci){
+//        Box box = this.getBoundingBox().expand(0.5D);
+//        Iterator blockPosIterator = BlockPos.iterate(MathHelper.floor(box.minX), MathHelper.floor(box.minY), MathHelper.floor(box.minZ), MathHelper.floor(box.maxX), MathHelper.floor(box.maxY), MathHelper.floor(box.maxZ)).iterator();
+//
+//        if(this.hasStatusEffect(StatusEffects.STRENGTH)) {
+//            while (blockPosIterator.hasNext()) {
+//                BlockPos blockPos = (BlockPos) blockPosIterator.next();
+//                BlockState blockState = this.world.getBlockState(blockPos);
+//                Block block = blockState.getBlock();
+//
+//                if (isBlockWood(block)) {
+//                    this.world.breakBlock(blockPos, true);
+//                }
+//            }
+//        }
+//    }
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);

@@ -39,6 +39,9 @@ public abstract class BipedEntityModelMixin {
         if(mainhandStack.getItem().equals(GizmoItems.SOUL_FIRE_SPITTER)){
             SoulFireSpitterPosing.hold(this.rightArm, this.leftArm, this.head, false);
         }
+//        if(mainhandStack.getItem().equals(GizmoItems.SLINGSHOT)){
+//            SlingshotPosing.hold(this.rightArm, this.leftArm, this.head, false);
+//        }
     }
 
 
@@ -51,6 +54,9 @@ public abstract class BipedEntityModelMixin {
         if(mainhandStack.getItem().equals(GizmoItems.SOUL_FIRE_SPITTER)){
             SoulFireSpitterPosing.method_29350(this.rightArm, this.leftArm, h);
         }
+//        if(mainhandStack.getItem().equals(GizmoItems.SLINGSHOT)){
+//            SlingshotPosing.method_29350(this.rightArm,this.leftArm,h);
+//        }
     }
 
 }

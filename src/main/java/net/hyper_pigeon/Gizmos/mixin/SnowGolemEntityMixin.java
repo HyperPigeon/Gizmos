@@ -56,9 +56,9 @@ public abstract class SnowGolemEntityMixin extends GolemEntity implements Sheara
     }
 
     @Inject(at = @At("TAIL"), method = "method_18443", cancellable = true)
-    private static boolean doNotAutoAggroOnTamedMonster(LivingEntity livingEntity,
+    private static void doNotAutoAggroOnTamedMonster(LivingEntity livingEntity,
                                                         CallbackInfoReturnable<Boolean> callbackInfoReturnable){
-        return livingEntity instanceof Monster && !(livingEntity instanceof TamedMonster);
+        callbackInfoReturnable.setReturnValue(livingEntity instanceof Monster && !(livingEntity instanceof TamedMonster));
     }
 
     @Inject(at = @At("HEAD"), method = "interactMob", cancellable = true)

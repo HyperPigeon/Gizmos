@@ -1,12 +1,16 @@
 package net.hyper_pigeon.Gizmos.entities;
 
 import net.hyper_pigeon.Gizmos.registry.GizmoItems;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Material;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.RavagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,10 +21,14 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Iterator;
 import java.util.UUID;
 
 public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
@@ -74,6 +82,12 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
         return false;
     }
 
+    public boolean isBlockWood(Block block){
+        if(block.getDefaultState().getMaterial().equals(Material.WOOD)){
+            return true;
+        }
+        return false;
+    }
 
     public void tickMovement(){
         super.tickMovement();
@@ -88,12 +102,27 @@ public class TamedRavagerEntity extends RavagerEntity implements TamedMonster {
 //            }
 //        }
 
+
         if(this.getOwner() != null){
             if(getOwner().getAttacking() != null && getOwner().getAttacking() != this){
                 super.setTarget(getOwner().getAttacking());
             }
             else if(getOwner().getAttacker() != null && getOwner().getAttacker() != this){
                 super.setTarget(getOwner().getAttacker());
+            }
+        }
+
+        if(this.hasStatusEffect(StatusEffects.STRENGTH)) {
+            Box box = this.getBoundingBox().expand(0.5D);
+            Iterator blockPosIterator = BlockPos.iterate(MathHelper.floor(box.minX), MathHelper.floor(box.minY), MathHelper.floor(box.minZ), MathHelper.floor(box.maxX), MathHelper.floor(box.maxY), MathHelper.floor(box.maxZ)).iterator();
+            while (blockPosIterator.hasNext()) {
+                BlockPos blockPos = (BlockPos) blockPosIterator.next();
+                BlockState blockState = this.world.getBlockState(blockPos);
+                Block block = blockState.getBlock();
+
+                if (isBlockWood(block)) {
+                    this.world.breakBlock(blockPos, true);
+                }
             }
         }
     }

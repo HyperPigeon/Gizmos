@@ -31,9 +31,9 @@ public abstract class IronGolemEntityMixin extends GolemEntity implements Angera
 
     //changes goal so IronGolem does not automatically aggro on any mobs that implement TamedMonster
     @Inject(at = @At("TAIL"), method = "method_6498", cancellable = true)
-    private static boolean doNotAutoAggroOnTamedMonster(LivingEntity livingEntity,
+    private static void  doNotAutoAggroOnTamedMonster(LivingEntity livingEntity,
                                                         CallbackInfoReturnable<Boolean> callbackInfoReturnable){
-        return livingEntity instanceof Monster && !(livingEntity instanceof CreeperEntity) && !(livingEntity instanceof TamedMonster);
+        callbackInfoReturnable.setReturnValue(livingEntity instanceof Monster && !(livingEntity instanceof TamedMonster));
     }
 
 

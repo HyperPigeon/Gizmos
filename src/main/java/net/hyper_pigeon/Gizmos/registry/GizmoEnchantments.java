@@ -1,13 +1,5 @@
 package net.hyper_pigeon.Gizmos.registry;
 
-import net.hyper_pigeon.Gizmos.enchantments.AfterburnEnchantment;
-import net.hyper_pigeon.Gizmos.enchantments.ScorchingEnchantment;
-import net.hyper_pigeon.Gizmos.enchantments.SoulburnEnchantment;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
 public class GizmoEnchantments {
 //    public static Enchantment SCORCHING;
 //    public static Enchantment AFTERBURN;

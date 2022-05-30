@@ -1,5 +1,7 @@
 package net.hyper_pigeon.Gizmos.items;
 
+import net.hyper_pigeon.Gizmos.entities.CobblestoneProjectileEntity;
+import net.hyper_pigeon.Gizmos.registry.GizmoEntities;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
@@ -55,7 +57,7 @@ public class Slingshot extends RangedWeaponItem implements Vanishable {
 
                 for(int i = 0; i < user.getInventory().size(); ++i) {
                     ItemStack itemStack2 = user.getInventory().getStack(i);
-                    if (predicate.test(itemStack2)) {
+                    if (predicate.test(itemStack2) || itemStack2.getItem() == Items.COBBLESTONE) {
                         return itemStack2;
                     }
                 }
@@ -79,8 +81,8 @@ public class Slingshot extends RangedWeaponItem implements Vanishable {
                 int i = this.getMaxUseTime(stack) - remainingUseTicks;
                 float f = getPullProgress(i);
                 if ((double)f >= 0.1D) {
-                    boolean bl2 = bl && (itemStack.getItem() == Items.ENDER_PEARL || itemStack.getItem() == Items.EGG
-                            || itemStack.getItem() == Items.SNOWBALL);
+                    boolean bl2 = bl && (itemStack.getItem() == Items.EGG
+                            || itemStack.getItem() == Items.SNOWBALL || itemStack.getItem() == Items.COBBLESTONE);
 
                     if (!world.isClient) {
                         if(itemStack.getItem() == Items.ENDER_PEARL){
@@ -93,11 +95,32 @@ public class Slingshot extends RangedWeaponItem implements Vanishable {
                             EggEntity persistentProjectileEntity = new EggEntity(world, playerEntity);
                             persistentProjectileEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
 
+                            if(EnchantmentHelper.getLevel(Enchantments.FLAME, stack) > 0){
+                                persistentProjectileEntity.setOnFireFor(100);
+                            }
+
                             world.spawnEntity(persistentProjectileEntity);
                         }
                         if(itemStack.getItem() == Items.SNOWBALL){
                             SnowballEntity persistentProjectileEntity = new SnowballEntity(world, playerEntity);
                             persistentProjectileEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
+
+                            if(EnchantmentHelper.getLevel(Enchantments.FLAME, stack) > 0){
+                                persistentProjectileEntity.setOnFireFor(100);
+                            }
+
+                            world.spawnEntity(persistentProjectileEntity);
+                        }
+                        if(itemStack.getItem() == Items.COBBLESTONE){
+
+                            CobblestoneProjectileEntity cobblestoneProjectileEntity = new CobblestoneProjectileEntity(GizmoEntities.COBBLESTONE_PROJECTILE_ENTITY,world);
+                            cobblestoneProjectileEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
+                            cobblestoneProjectileEntity.setPos(playerEntity.getX(), playerEntity.getY() + (double) playerEntity.getStandingEyeHeight() - 0.10000000149011612D, playerEntity.getZ());
+                            cobblestoneProjectileEntity.setOwner(playerEntity);
+                            cobblestoneProjectileEntity.setDamage(1+(2*f));
+
+
+                            world.spawnEntity(cobblestoneProjectileEntity);
                         }
 
                         stack.damage(1, playerEntity, ((e) -> {
