@@ -1,0 +1,6 @@
+{
+  "parent": "gizmos:item/slingshot",
+  "textures": {
+    "layer0": "gizmos:item/slingshot_two"
+  }
+}
