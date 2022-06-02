@@ -2,7 +2,6 @@ package net.hyper_pigeon.Gizmos.entities;
 
 import net.hyper_pigeon.Gizmos.registry.GizmoEntities;
 import net.hyper_pigeon.Gizmos.registry.GizmoItems;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -16,15 +15,22 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public class EyeOfEnderArrowEntity extends PersistentProjectileEntity {
+public class EyeOfEnderArrowEntity extends PersistentProjectileEntity implements IAnimatable {
 
     private Entity target;
     private boolean targetDNE = false;
 
+    private AnimationFactory factory = new AnimationFactory(this);
 
     public final Predicate<LivingEntity> NON_ENDER_ENTITY_AND_GLOWING = (entity) -> {
         return entity.getType() != EntityType.ENDER_DRAGON && entity.getType() != EntityType.ENDERMAN &&
@@ -131,4 +137,18 @@ public class EyeOfEnderArrowEntity extends PersistentProjectileEntity {
     }
 
 
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        return PlayState.STOP;
+    }
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController<EyeOfEnderArrowEntity>(this, "controller", 0, this::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return this.factory;
+    }
 }
