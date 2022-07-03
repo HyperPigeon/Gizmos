@@ -9,7 +9,7 @@
     "Hyper_Pigeon"
   ],
   
-  "icon": "assets/gizmos/textures/item/slingshot.png",
+  "icon": "slingshot.png",
   "license": "MIT",
   
   "environment": "*",
@@ -19,7 +19,7 @@
       "net.hyper_pigeon.Gizmos.Gizmos"
     ],
     "client": [
-      "net.hyper_pigeon.Gizmos.GizmosClient"
+      "net.hyper_pigeon.Gizmos.client.GizmosClient"
     ],
     "modmenu": [
       "net.hyper_pigeon.Gizmos.config.GizmosModMenuIntegration"
@@ -29,7 +29,7 @@
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
-    "minecraft": "1.18.x",
+    "minecraft": "1.19.x",
     "java": ">=17"
   },
 

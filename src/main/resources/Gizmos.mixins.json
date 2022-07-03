@@ -1,15 +1,16 @@
 {
   "required": true,
   "package": "net.hyper_pigeon.Gizmos.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "plugin": "net.hyper_pigeon.Gizmos.mixin.MixinConditions",
   "mixins": [
     "BipedEntityModelMixin",
     "EndermanEntityMixin",
-    "HorseBaseEntityMixin",
+    "AbstractHorseEntityMixin",
     "HorseEntityMixin",
     "IronGolemEntityMixin",
     "PillagerEntityMixin",
+    "PlayerEntityRendererMixin",
     "RavagerEntityMixin",
     "SkeletonHorseEntityMixin",
     "SnowGolemEntityMixin",
