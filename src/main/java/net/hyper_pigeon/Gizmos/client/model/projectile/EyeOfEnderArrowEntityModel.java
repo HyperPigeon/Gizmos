@@ -11,18 +11,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class EyeOfEnderArrowEntityModel extends AnimatedGeoModel<EyeOfEnderArrowEntity> {
 
 	@Override
-	public Identifier getModelLocation(EyeOfEnderArrowEntity object) {
+	public Identifier getModelResource(EyeOfEnderArrowEntity object) {
 		return new Identifier("gizmos", "geo/eye_of_ender_arrow.geo.json");
 	}
 
 	@Override
-	public Identifier getTextureLocation(EyeOfEnderArrowEntity object) {
+	public Identifier getTextureResource(EyeOfEnderArrowEntity object) {
 		return new Identifier("gizmos", "textures/items/eye_of_ender_arrow.png");
 	}
 
-
 	@Override
-	public Identifier getAnimationFileLocation(EyeOfEnderArrowEntity animatable) {
+	public Identifier getAnimationResource(EyeOfEnderArrowEntity animatable) {
 		return null;
 	}
 }

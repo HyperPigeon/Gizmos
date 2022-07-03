@@ -1,12 +1,13 @@
 package net.hyper_pigeon.Gizmos.items;
 
 import net.hyper_pigeon.Gizmos.entities.TamedRavagerEntity;
+import net.hyper_pigeon.Gizmos.mixin.AbstractHorseEntityMixin;
 import net.hyper_pigeon.Gizmos.registry.GizmoItems;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -27,7 +28,7 @@ public class Horseshoes extends ArmorItem {
     }
 
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        if(!user.world.isClient && (entity instanceof HorseBaseEntity || entity instanceof TamedRavagerEntity)){
+        if(!user.world.isClient && (entity instanceof AbstractHorseEntity || entity instanceof TamedRavagerEntity)){
             EquipmentSlot equipmentSlot = EquipmentSlot.FEET;
             ItemStack itemStack2 = entity.getEquippedStack(equipmentSlot);
             if(itemStack2.isEmpty()){

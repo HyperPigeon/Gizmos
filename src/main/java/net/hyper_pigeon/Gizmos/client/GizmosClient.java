@@ -3,7 +3,7 @@ package net.hyper_pigeon.Gizmos.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.hyper_pigeon.Gizmos.blocks.FireworkStarBlockScreen;
@@ -22,13 +22,13 @@ public class GizmosClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
-        EntityRendererRegistry.INSTANCE.register(GizmoEntities.COBBLESTONE_PROJECTILE_ENTITY, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(GizmoEntities.COBBLESTONE_PROJECTILE_ENTITY, FlyingItemEntityRenderer::new);
 
-        EntityRendererRegistry.INSTANCE.register(GizmoEntities.CULTIVATED_SHULKER_ENTITY, ShulkerEntityRenderer::new);
+        EntityRendererRegistry.register(GizmoEntities.CULTIVATED_SHULKER_ENTITY, ShulkerEntityRenderer::new);
 
-        EntityRendererRegistry.INSTANCE.register(GizmoEntities.TAMED_RAVAGER_ENTITY, RavagerEntityRenderer::new);
+        EntityRendererRegistry.register(GizmoEntities.TAMED_RAVAGER_ENTITY, RavagerEntityRenderer::new);
 
-        EntityRendererRegistry.INSTANCE.register(GizmoEntities.EYE_OF_ENDER_ARROW_ENTITY, EyeOfEnderArrowEntityRenderer::new);
+        EntityRendererRegistry.register(GizmoEntities.EYE_OF_ENDER_ARROW_ENTITY, EyeOfEnderArrowEntityRenderer::new);
 
         ScreenRegistry.register(GizmoBlocks.FIREWORK_STAR_BLOCK_CRAFTING_SCREEN_HANDLER_SCREEN_HANDLER_TYPE, FireworkStarBlockScreen::new);
 

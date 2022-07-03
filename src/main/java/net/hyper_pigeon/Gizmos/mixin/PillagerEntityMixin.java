@@ -30,7 +30,7 @@ public abstract class PillagerEntityMixin extends IllagerEntity implements Cross
 
     //gives 5% of pillagers a rocket in their offhand
     @Inject(at = @At("HEAD"), method = "initEquipment")
-    protected void giveFireworkOffhand(LocalDifficulty difficulty, CallbackInfo callback) {
+    protected void giveFireworkOffhand(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty, CallbackInfo ci) {
 
         int i = random.nextInt(100)+1;
 

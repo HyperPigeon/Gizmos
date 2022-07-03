@@ -5,7 +5,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
+
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -21,9 +22,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HorseEntity.class)
-public abstract class HorseEntityMixin extends HorseBaseEntity {
+public abstract class HorseEntityMixin extends AbstractHorseEntity {
 
-    protected HorseEntityMixin(EntityType<? extends HorseBaseEntity> entityType, World world) {
+    protected HorseEntityMixin(EntityType<? extends AbstractHorseEntity> entityType, World world) {
         super(entityType, world);
     }
 

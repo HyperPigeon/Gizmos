@@ -1,6 +1,5 @@
 package net.hyper_pigeon.Gizmos.blocks;
 
-import net.hyper_pigeon.Gizmos.registry.GizmoBlocks;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -8,19 +7,17 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class FireworkStarBlock extends BlockWithEntity {
 
-    private static final Text TITLE = new TranslatableText("container.crafting");
+    private static final TranslatableTextContent TITLE = new TranslatableTextContent("container.crafting");
 
     public FireworkStarBlock(AbstractBlock.Settings settings) {
         super(settings);
