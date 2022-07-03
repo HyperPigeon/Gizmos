@@ -1,5 +1,5 @@
 plugins {
-	id "fabric-loom" version "0.10-SNAPSHOT"
+	id "fabric-loom" version "0.12-SNAPSHOT"
 	id "maven-publish"
 	id "com.jfrog.artifactory" version "4.15.2"
 }
@@ -14,9 +14,6 @@ if(rootProject.file("private.gradle").exists()) { //Publishing details
 archivesBaseName = "${project.archives_base_name}"
 group = "${project.maven_group}"
 version = "${project.mod_version}+${project.minecraft_version}"
-
-minecraft {
-}
 
 repositories {
 	maven { url "https://server.bbkr.space/artifactory/libs-release" } // Cotton maven - home of Cotton projects
@@ -52,8 +49,8 @@ dependencies {
 	
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation "de.siphalor:nbtcrafting-1.18:2.1.3+mc1.18.2"
-	include "de.siphalor:nbtcrafting-1.18:2.1.3+mc1.18.2"
+	modImplementation "de.siphalor:nbtcrafting-1.19:2.1.3+mc1.19"
+	include "de.siphalor:nbtcrafting-1.19:2.1.3+mc1.19"
 
 	modImplementation "io.github.cottonmc:LibGui:${project.libGui_version}"
 
@@ -68,7 +65,7 @@ dependencies {
 	}
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
-	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.18:3.0.42'
+	modImplementation 'software.bernie.geckolib:geckolib-fabric-1.19:3.1.5'
 	// Recipe conditions, optional dependency
 	//modImplementation("io.github.ytg1234:fabric-recipe-conditions:0.4.1")
 
