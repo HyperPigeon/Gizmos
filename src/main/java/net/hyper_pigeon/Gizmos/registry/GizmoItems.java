@@ -1,9 +1,5 @@
 package net.hyper_pigeon.Gizmos.registry;
 
-import io.github.ytg1234.recipeconditions.api.RecipeConds;
-import io.github.ytg1234.recipeconditions.api.condition.base.RecipeCondition;
-import io.github.ytg1234.recipeconditions.api.condition.base.RecipeConditionParameter;
-import io.github.ytg1234.recipeconditions.api.condition.util.RecipeCondsUtil;
 import net.hyper_pigeon.Gizmos.Gizmos;
 import net.hyper_pigeon.Gizmos.entities.EyeOfEnderArrowEntity;
 import net.hyper_pigeon.Gizmos.items.EyeOfEnderArrowItem;
@@ -16,7 +12,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.SpectralArrowEntity;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Position;

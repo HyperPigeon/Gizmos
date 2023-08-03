@@ -85,19 +85,19 @@ public class Slingshot extends RangedWeaponItem implements Vanishable {
                     if (!world.isClient) {
                         if(itemStack.getItem() == Items.ENDER_PEARL){
                             EnderPearlEntity persistentProjectileEntity = new EnderPearlEntity(world, playerEntity);
-                            persistentProjectileEntity.setProperties(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
+                            persistentProjectileEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
 
                             world.spawnEntity(persistentProjectileEntity);
                         }
                         if(itemStack.getItem() == Items.EGG){
                             EggEntity persistentProjectileEntity = new EggEntity(world, playerEntity);
-                            persistentProjectileEntity.setProperties(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
+                            persistentProjectileEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
 
                             world.spawnEntity(persistentProjectileEntity);
                         }
                         if(itemStack.getItem() == Items.SNOWBALL){
                             SnowballEntity persistentProjectileEntity = new SnowballEntity(world, playerEntity);
-                            persistentProjectileEntity.setProperties(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
+                            persistentProjectileEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, f * 3.0F, 1.0F);
                         }
 
                         stack.damage(1, playerEntity, ((e) -> {

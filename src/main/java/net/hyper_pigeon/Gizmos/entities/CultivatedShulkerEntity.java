@@ -2,7 +2,7 @@ package net.hyper_pigeon.Gizmos.entities;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -134,7 +134,7 @@ public class CultivatedShulkerEntity extends ShulkerEntity implements TamedMonst
     }
 
 
-    static class SearchForTargetGoal extends FollowTargetGoal<LivingEntity> {
+    static class SearchForTargetGoal extends ActiveTargetGoal<LivingEntity> {
         public SearchForTargetGoal(CultivatedShulkerEntity shulker) {
             super(shulker, LivingEntity.class, 10, true, false, (entity) -> {
                 return !(entity instanceof TamedMonster) && entity instanceof Monster;

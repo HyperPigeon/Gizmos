@@ -1,11 +1,11 @@
 plugins {
-	id "fabric-loom" version "0.9-SNAPSHOT"
+	id "fabric-loom" version "0.10-SNAPSHOT"
 	id "maven-publish"
 	id "com.jfrog.artifactory" version "4.15.2"
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 if(rootProject.file("private.gradle").exists()) { //Publishing details
 	apply from: "private.gradle"
@@ -51,24 +51,24 @@ dependencies {
 	
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation "de.siphalor:nbtcrafting-1.17:2+"
-	include "de.siphalor:nbtcrafting-1.17:2+"
+	modImplementation "de.siphalor:nbtcrafting-1.18:2+"
+	include "de.siphalor:nbtcrafting-1.18:2+"
 
 	modImplementation "io.github.cottonmc:LibGui:${project.libGui_version}"
 
 	//modImplementation "com.github.TeamMidnightDust:ThisRocks:1.2.2"
 
-	modApi("me.shedaniel.cloth:cloth-config-fabric:5.0.34") {
+	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-	include ("me.shedaniel.cloth:cloth-config-fabric:5.0.34") {
+	include ("me.shedaniel.cloth:cloth-config-fabric:${project.config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 	// Recipe conditions, optional dependency
-	modImplementation("io.github.ytg1234:fabric-recipe-conditions:0.4.0")
+	//modImplementation("io.github.ytg1234:fabric-recipe-conditions:0.4.1")
 
 //	// invoker transformation
 //	modImplementation 'com.github.Chocohead:Fabric-ASM:v2.2'
@@ -93,7 +93,7 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
 
 	// Minecraft 1.17 (21w19a) upwards uses Java 16.
-	it.options.release = 16
+	it.options.release = 17
 }
 
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
